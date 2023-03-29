@@ -15,11 +15,9 @@ import { RouterLink, RouterView } from 'vue-router'
 
   <RouterView />
 
-      <aside>
-        aside
-      </aside>
+  <aside>
+    aside
+  </aside>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
