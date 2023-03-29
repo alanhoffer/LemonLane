@@ -3,6 +3,7 @@
 
 <template>
   <main>
-    home
+
+    shop
   </main>
 </template>
