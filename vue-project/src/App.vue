@@ -5,11 +5,11 @@ import NavbarVue from './components/Navbar.vue';
 </script>
 
 <template>
-  <NavbarVue />
+    <NavbarVue />
 
-  <RouterView />
+    <RouterView />
 
-  <AsideVue />
+    <AsideVue />
 </template>
 
 <style scoped></style>
