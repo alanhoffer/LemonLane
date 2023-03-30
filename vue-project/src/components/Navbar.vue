@@ -1,19 +1,90 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 </script>
 
 <template>
-    <main>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <main>
 
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-      </nav>
+    <div class="navbar-container">
+      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+
+      <div class="wrapper">
+        <nav>
+          <RouterLink to="/">HOME</RouterLink>
+          <RouterLink to="/shop">SHOP</RouterLink>
+          <RouterLink to="/brand">BRAND</RouterLink>
+          <RouterLink to="/contact">CONTACT</RouterLink>
+        </nav>
+      </div>
+      <div class="social-media">
+        <a href="">
+          <font-awesome-icon icon="fa-brands fa-square-facebook" />
+        </a>
+        <a href="">
+          <font-awesome-icon icon="fa-brands fa-instagram" />
+        </a>
+        <a href="">
+          <font-awesome-icon icon="fa-brands fa-twitter" />
+        </a>
+      </div>
     </div>
-  </header>
-</main>
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.navbar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  height: 100vh;
+  min-width: 300px;
+}
+
+
+.navbar-container img {
+  margin: auto;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+
+  width: 80%;
+  height: 60%;
+}
+
+.wrapper nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper nav a {
+  margin: 0.5rem;
+  font-weight: 500;
+  color: black;
+}
+
+.social-media {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 10%;
+  width: 100%;
+
+
+}
+
+.social-media a {
+  margin: 0.5rem;
+  color: black;
+}
+
+.social-media a svg{
+  font-size: 24px;
+}
+</style>
