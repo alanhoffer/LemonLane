@@ -40,7 +40,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   justify-content: space-between;
   background-color: white;
   height: 100vh;
-  min-width: 300px;
+  min-width: 13vw;
 }
 
 
