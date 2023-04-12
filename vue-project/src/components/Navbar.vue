@@ -40,7 +40,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   justify-content: space-between;
   background-color: white;
   height: 100vh;
-  min-width: 300px;
+  min-width: 13vw;
 }
 
 
@@ -49,11 +49,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 }
 
 .wrapper {
+  height: 60%;
   display: flex;
   justify-content: center;
-
-  width: 80%;
-  height: 60%;
 }
 
 .wrapper nav {
