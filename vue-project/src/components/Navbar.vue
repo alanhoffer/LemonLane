@@ -49,11 +49,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 }
 
 .wrapper {
+  height: 60%;
   display: flex;
   justify-content: center;
-
-  width: 80%;
-  height: 60%;
 }
 
 .wrapper nav {

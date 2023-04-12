@@ -56,7 +56,6 @@ const getPageFormated = (page: number) => {
 
 <template>
   <main>
-
       <section class="slider" v-if="!sliderState.isLoading">
         <img id="productImage" :src="newArticles[sliderState.actualPage].image" />
         
@@ -77,7 +76,7 @@ const getPageFormated = (page: number) => {
 <style scoped>
 .slider{
   height: 100vh;
-  width: 79vw;
+  width: 81vw;
   overflow: hidden;
   background-color: red;
 }
@@ -105,7 +104,7 @@ const getPageFormated = (page: number) => {
   overflow: hidden;
   text-align: center;
   margin-left: 100px;
-    overflow:hidden; 
+  overflow:hidden; 
   padding: 0px 20px;
   
   z-index:1;
