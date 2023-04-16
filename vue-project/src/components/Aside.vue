@@ -12,7 +12,7 @@ import { RouterLink } from 'vue-router'
         </RouterLink>
 
 
-        
+
         <slot name="Aside-panel" />
 
         <RouterLink class="cartLink" to="/cart">
@@ -22,23 +22,31 @@ import { RouterLink } from 'vue-router'
 </template>
 
 <style scoped>
-.aside{
-    display:flex;
-    flex-direction:column;
+.aside {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     background-color: white;
     min-width: 6vw;
 }
 
-a img{
+.cartLink {
+    position: absolute;
+    bottom: 1rem;
+}
+
+.profileLink {
+    position: absolute;
+    top: 1rem;
+}
+
+a img {
     width: 24px;
 }
 
-a img:hover, .pageChanger:hover{
+a img:hover,
+.pageChanger:hover {
     color: #333;
 }
-
-
-
 </style>
