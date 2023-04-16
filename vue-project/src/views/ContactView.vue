@@ -65,7 +65,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 }
 
 .contactContainer {
-  height: 70vh;
+  height: 60vh;
   width: 55vw;
 }
 
@@ -86,7 +86,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   display: flex;
   flex-direction: column;
   width: 50%;
-  height: 30vh;
+  height: 25vh;
   margin-right: 15px;
   justify-content: space-between;
 }
@@ -115,39 +115,16 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   text-align: center;
 }
 
+#sendBtn:hover{
+  background-color: #303030;
+  cursor: pointer;
+
+}
+
 #avioncito {
   color: #ffffff;
   margin: 0 5px;
 }
-
-/* .contactTitle {
-  text-align: left;
-}
-
-.contactForm {
-  display: flex;
-}
-
-.senderInformation {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 50%;
-  margin-right: 20px;
-}
-
-.senderMessage {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.senderMessage textarea {
-  height: 100%;
-  resize: none;
-}
-*/
-
 .contactInfo {
   width: 55vw;
   display: flex;
