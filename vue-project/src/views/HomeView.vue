@@ -2,6 +2,7 @@
 import { reactive } from 'vue'
 
 import AsideVue from '../components/Aside.vue';
+import SliderControls from '@/components/SliderControls.vue';
 
 type Article = {
   id: number
@@ -59,27 +60,43 @@ const getPageFormated = (page: number) => {
     <section class="slider" v-if="!sliderState.isLoading">
       <img id="productImage" :src="newArticles[sliderState.actualPage].image" />
 
-      <div class="colection">
-        <p>{{ newArticles[sliderState.actualPage].season.toLocaleUpperCase() + ' COLECTION' }}</p>
-        <span></span>
-      </div>
+        <p class="colection">{{ newArticles[sliderState.actualPage].season.toLocaleUpperCase() + ' COLECTION' }}</p>
       <div class="sliderPage"> {{ getPageFormated(sliderState.actualPage) }} </div>
     </section>
 
   </main>
 
-  <AsideVue v-bind:actualPage="getPageFormated(sliderState.actualPage)" :togglePage="togglePage"
-    v-bind:totalPages="getPageFormated(sliderState.totalPages - 1)" />
+    <AsideVue  >
+      <template #Aside-panel >
+
+          <SliderControls 
+          :togglePage="togglePage"
+          :totalPages="getPageFormated(sliderState.totalPages - 1)" 
+          />
+          
+      </template>
+    </AsideVue>
 </template>
 
 
 <style scoped>
+
+
 .slider {
   height: 100vh;
-  width: 81vw;
+    width: 0vw;
   overflow: hidden;
-  background-color: red;
+  
+  animation-name: sliderAnim;
+  animation-duration: 0.5s;
+  animation-delay: 0s;
+  background-color: #222;
 }
+
+.slider{
+  width: 81vw;
+}
+
 
 #productImage {
   width: 100%;
@@ -96,7 +113,7 @@ const getPageFormated = (page: number) => {
   left: 100px;
   margin: 0;
   color: white;
-  width: 15vw;
+  width: 15%;
   text-align: center;
 }
 
@@ -110,13 +127,13 @@ const getPageFormated = (page: number) => {
 }
 
 .colection:before {
-  left: -6vw;
-  width: 6vw;
+  left: -4vw;
+  width: 4vw;
 }
 
 .colection:after {
-  right: -57vw;
-  width: 57vw;
+  right: -56vw;
+  width: 56vw;
 }
 
 
@@ -133,4 +150,12 @@ const getPageFormated = (page: number) => {
   color: white;
   user-select: none;
 
-}</style>
+}
+
+
+@keyframes sliderAnim {
+  0%   {width: 0vw;}
+  100% {width: 81vw;}
+}
+
+</style>
