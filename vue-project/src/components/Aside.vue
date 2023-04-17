@@ -2,20 +2,36 @@
 import { RouterLink } from 'vue-router'
 
 
+const isLoggedIn = () => {
+    let username = localStorage.username;
+    
+    if(username){
+        return '/profile'
+    }
+
+    return '/auth'
+}
+
+const logout = () => {
+    localStorage.removeItem('username');
+    return ''
+}
+
 
 </script>
 
 <template #lawea>
     <aside class="aside">
-        <RouterLink class="profileLink" to="/profile">
+        
+        <RouterLink class="profileLink" :to=isLoggedIn() >
             <img src="../assets/icons/user.svg" />
         </RouterLink>
 
 
 
-        <slot name="Aside-panel" />
 
-        <RouterLink class="cartLink" to="/cart">
+        <slot name="Aside-panel" />
+        <RouterLink class="cartLink" :to=logout() >
             <img src="../assets/icons/bag.svg" />
         </RouterLink>
     </aside>
@@ -33,12 +49,12 @@ import { RouterLink } from 'vue-router'
 
 .cartLink {
     position: absolute;
-    bottom: 1rem;
+    bottom: 2rem;
 }
 
 .profileLink {
     position: absolute;
-    top: 1rem;
+    top: 2rem;
 }
 
 a img {
