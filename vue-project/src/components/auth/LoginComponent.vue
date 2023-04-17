@@ -1,6 +1,14 @@
 <script setup lang="ts">
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { reactive } from 'vue';
+import { login } from '@/modules/API/Auth';
+
+const loginState = reactive({
+  email: '',
+  password:'',
+})
+
 
 
 </script>
@@ -10,10 +18,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     <div class="loginContainer">
         <h1 class="loginTitle">LOG IN</h1>
         <div class="loginForm">
-            <input type="email" placeholder="Email" /> 
-            <input type="Password" placeholder="Password" /> 
+            <input type="email" placeholder="Email" v-model="loginState.email" /> 
+            <input type="Password" placeholder="Password" v-model="loginState.password"/> 
         </div>
-        <button id="logBtn"> Log in </button>
+        <button id="logBtn" @click="login(loginState.email, loginState.password)"> Log in </button>
     </div>
   </main>
 

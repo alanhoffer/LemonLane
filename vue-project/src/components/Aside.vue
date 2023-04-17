@@ -1,20 +1,13 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { AuthCheck } from '../modules/API/Auth';
 
 
-const isLoggedIn = () => {
-    let username = localStorage.username;
-    
-    if(username){
+const routeSelector = () => {
+    if(AuthCheck()){
         return '/profile'
     }
-
     return '/auth'
-}
-
-const logout = () => {
-    localStorage.removeItem('username');
-    return ''
 }
 
 
@@ -23,7 +16,7 @@ const logout = () => {
 <template #lawea>
     <aside class="aside">
         
-        <RouterLink class="profileLink" :to=isLoggedIn() >
+        <RouterLink class="profileLink" :to=routeSelector() >
             <img src="../assets/icons/user.svg" />
         </RouterLink>
 
@@ -31,7 +24,7 @@ const logout = () => {
 
 
         <slot name="Aside-panel" />
-        <RouterLink class="cartLink" :to=logout() >
+        <RouterLink class="cartLink" to='/cart' >
             <img src="../assets/icons/bag.svg" />
         </RouterLink>
     </aside>
