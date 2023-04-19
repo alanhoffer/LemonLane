@@ -9,17 +9,18 @@ const page = reactive({
 
 const scrollEvent = (event: any) => {
   const main = event.target;
-  console.log(page)
-  if (main.scrollTop < 750) {
+  const mainSize = main.clientHeight
+
+  if (main.scrollTop < mainSize) {
     page.Position = 1;
   }
-  if (main.scrollTop > 750 && main.scrollTop < 1500) {
+  if (main.scrollTop >= mainSize && main.scrollTop < (mainSize * 2)) {
     page.Position = 2;
   }
-  if (main.scrollTop > 1500 && main.scrollTop < 2250) {
+  if (main.scrollTop >= (mainSize * 2) && main.scrollTop < (mainSize * 3 )) {
     page.Position = 3;
   }
-  if (main.scrollTop > 2250) {
+  if (main.scrollTop >= (mainSize * 3 )) {
     page.Position = 4;
   }
 };
@@ -33,104 +34,29 @@ const scrollEvent = (event: any) => {
         los diseños más exclusivos de gorras, remeras, pantalones, buzos,
         camperas y medias para llevar tu estilo a otro nivel.
 
-        <br />
-        <br />
-        En Lemon Lane creemos en la moda como una forma de expresión personal y
-        única, por eso seleccionamos cuidadosamente cada prenda para que puedas
-        encontrar aquella que se adapte a tu estilo y personalidad. Nuestra ropa
-        vintage te permitirá destacar en cualquier lugar, ya sea en una reunión
-        casual o en un evento especial.
-
-        <br />
-        <br />
-        Nos enfocamos en brindarte una experiencia de compra fácil y cómoda
-        desde cualquier dispositivo, tanto en la web como en dispositivos
-        móviles. Además, podrás acceder a nuestros productos desde cualquier
-        lugar de Argentina gracias a nuestros envíos a todo el país.
-
-        <br />
-        <br />
-        Te invitamos a explorar nuestro catálogo y descubrir los diseños únicos
-        que tenemos para ti. En Lemon Lane, estamos comprometidos con la moda y
-        la originalidad, y queremos ser tu marca de referencia.
       </div>
       <div id="blog2">
-        Bienvenidos a Lemon Lane, tu tienda de ropa vintage donde encontrarás
-        los diseños más exclusivos de gorras, remeras, pantalones, buzos,
-        camperas y medias para llevar tu estilo a otro nivel.
 
-        <br />
-        <br />
         En Lemon Lane creemos en la moda como una forma de expresión personal y
         única, por eso seleccionamos cuidadosamente cada prenda para que puedas
         encontrar aquella que se adapte a tu estilo y personalidad. Nuestra ropa
         vintage te permitirá destacar en cualquier lugar, ya sea en una reunión
         casual o en un evento especial.
 
-        <br />
-        <br />
-        Nos enfocamos en brindarte una experiencia de compra fácil y cómoda
-        desde cualquier dispositivo, tanto en la web como en dispositivos
-        móviles. Además, podrás acceder a nuestros productos desde cualquier
-        lugar de Argentina gracias a nuestros envíos a todo el país.
-
-        <br />
-        <br />
-        Te invitamos a explorar nuestro catálogo y descubrir los diseños únicos
-        que tenemos para ti. En Lemon Lane, estamos comprometidos con la moda y
-        la originalidad, y queremos ser tu marca de referencia.
       </div>
       <div id="blog3">
-        Bienvenidos a Lemon Lane, tu tienda de ropa vintage donde encontrarás
-        los diseños más exclusivos de gorras, remeras, pantalones, buzos,
-        camperas y medias para llevar tu estilo a otro nivel.
-
-        <br />
-        <br />
-        En Lemon Lane creemos en la moda como una forma de expresión personal y
-        única, por eso seleccionamos cuidadosamente cada prenda para que puedas
-        encontrar aquella que se adapte a tu estilo y personalidad. Nuestra ropa
-        vintage te permitirá destacar en cualquier lugar, ya sea en una reunión
-        casual o en un evento especial.
-
-        <br />
-        <br />
         Nos enfocamos en brindarte una experiencia de compra fácil y cómoda
         desde cualquier dispositivo, tanto en la web como en dispositivos
         móviles. Además, podrás acceder a nuestros productos desde cualquier
         lugar de Argentina gracias a nuestros envíos a todo el país.
-
-        <br />
-        <br />
-        Te invitamos a explorar nuestro catálogo y descubrir los diseños únicos
-        que tenemos para ti. En Lemon Lane, estamos comprometidos con la moda y
-        la originalidad, y queremos ser tu marca de referencia.
+        
       </div>
       <div id="blog4">
-        Bienvenidos a Lemon Lane, tu tienda de ropa vintage donde encontrarás
-        los diseños más exclusivos de gorras, remeras, pantalones, buzos,
-        camperas y medias para llevar tu estilo a otro nivel.
 
-        <br />
-        <br />
-        En Lemon Lane creemos en la moda como una forma de expresión personal y
-        única, por eso seleccionamos cuidadosamente cada prenda para que puedas
-        encontrar aquella que se adapte a tu estilo y personalidad. Nuestra ropa
-        vintage te permitirá destacar en cualquier lugar, ya sea en una reunión
-        casual o en un evento especial.
-
-        <br />
-        <br />
-        Nos enfocamos en brindarte una experiencia de compra fácil y cómoda
-        desde cualquier dispositivo, tanto en la web como en dispositivos
-        móviles. Además, podrás acceder a nuestros productos desde cualquier
-        lugar de Argentina gracias a nuestros envíos a todo el país.
-
-        <br />
-        <br />
         Te invitamos a explorar nuestro catálogo y descubrir los diseños únicos
         que tenemos para ti. En Lemon Lane, estamos comprometidos con la moda y
         la originalidad, y queremos ser tu marca de referencia.
+
       </div>
     </section>
   </main>
@@ -160,7 +86,10 @@ div {
 }
 
 .aboutUs div {
-  padding: 10%;
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+  width: 100%;
   scroll-snap-align: start;
 }
 
