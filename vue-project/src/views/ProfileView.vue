@@ -25,7 +25,7 @@ import Aside from "@/components/Aside.vue";
           <li>GIFT CARDS</li>
           <li>ADDRESS</li>
           <li>SUPPORT</li>
-          <li>LOG OUT</li>
+          <li @click="logout">LOG OUT</li>
         </ul>
     </section>
   </main>
