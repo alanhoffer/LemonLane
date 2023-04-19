@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   <main>
 
     <div class="navbar-container">
-      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+      <RouterLink to="/"><img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /></RouterLink>
 
       <div class="wrapper">
         <nav>
@@ -44,7 +44,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 }
 
 
-.navbar-container img {
+.navbar-container a {
   margin: auto;
 }
 
