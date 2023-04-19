@@ -90,6 +90,7 @@ div {
   align-items: center;
   min-height: 100%;
   width: 100%;
+  padding: 0px 10%;
   scroll-snap-align: start;
 }
 
