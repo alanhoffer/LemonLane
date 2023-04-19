@@ -23,5 +23,6 @@ export const login = (email:string, password:string) => {
 
 export const register = (name:string, lastname:string, email:string, password:string, repassword:string) =>  {
     router.push('/profile')
+    localStorage.email = email
 
 }

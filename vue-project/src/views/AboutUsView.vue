@@ -1,109 +1,177 @@
 <script setup lang="ts">
-import AsideVue from '../components/Aside.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import AsideVue from "../components/Aside.vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { reactive } from "vue";
 
+const page = reactive({
+  Position: 1,
+});
+
+const scrollEvent = (event: any) => {
+  const main = event.target;
+  console.log(page)
+  if (main.scrollTop < 800) {
+    page.Position = 1;
+  }
+  if (main.scrollTop > 800 && main.scrollTop < 1700) {
+    page.Position = 2;
+  }
+  if (main.scrollTop > 1700 && main.scrollTop < 2600) {
+    page.Position = 3;
+  }
+  if (main.scrollTop > 2600) {
+    page.Position = 4;
+  }
+};
 </script>
 
 <template>
   <main>
-    <section class="aboutUs">
-      <div class="aboutUsContainer">
-        <h1 class="aboutUsTitle">
-          CONTACT US
-        </h1>
-        <div class="contactForm">
-          <div class="senderInformation">
-            <input placeholder="First Name" />
-            <input placeholder="Last Name" />
-            <input placeholder="Email Name" />
-          </div>
-          <div class="senderMessage">
-            <textarea placeholder="First Name" />
-            <button>Send <font-awesome-icon icon="fa-solid fa-paper-plane" /> </button>
-          </div>
-        </div>
+    <section class="aboutUs" v-on:scroll.native="(event) => scrollEvent(event)">
+      <div id="blog1">
+        Bienvenidos a Lemon Lane, tu tienda de ropa vintage donde encontrarás
+        los diseños más exclusivos de gorras, remeras, pantalones, buzos,
+        camperas y medias para llevar tu estilo a otro nivel.
+
+        <br />
+        <br />
+        En Lemon Lane creemos en la moda como una forma de expresión personal y
+        única, por eso seleccionamos cuidadosamente cada prenda para que puedas
+        encontrar aquella que se adapte a tu estilo y personalidad. Nuestra ropa
+        vintage te permitirá destacar en cualquier lugar, ya sea en una reunión
+        casual o en un evento especial.
+
+        <br />
+        <br />
+        Nos enfocamos en brindarte una experiencia de compra fácil y cómoda
+        desde cualquier dispositivo, tanto en la web como en dispositivos
+        móviles. Además, podrás acceder a nuestros productos desde cualquier
+        lugar de Argentina gracias a nuestros envíos a todo el país.
+
+        <br />
+        <br />
+        Te invitamos a explorar nuestro catálogo y descubrir los diseños únicos
+        que tenemos para ti. En Lemon Lane, estamos comprometidos con la moda y
+        la originalidad, y queremos ser tu marca de referencia.
       </div>
-      
+      <div id="blog2">
+        Bienvenidos a Lemon Lane, tu tienda de ropa vintage donde encontrarás
+        los diseños más exclusivos de gorras, remeras, pantalones, buzos,
+        camperas y medias para llevar tu estilo a otro nivel.
 
-      <div class="contactInfo">
+        <br />
+        <br />
+        En Lemon Lane creemos en la moda como una forma de expresión personal y
+        única, por eso seleccionamos cuidadosamente cada prenda para que puedas
+        encontrar aquella que se adapte a tu estilo y personalidad. Nuestra ropa
+        vintage te permitirá destacar en cualquier lugar, ya sea en una reunión
+        casual o en un evento especial.
 
-        <div class="contactItem">
-          <font-awesome-icon icon="fa-solid fa-envelope" />
-          <p>info@lemonlane.com</p>
-        </div>
+        <br />
+        <br />
+        Nos enfocamos en brindarte una experiencia de compra fácil y cómoda
+        desde cualquier dispositivo, tanto en la web como en dispositivos
+        móviles. Además, podrás acceder a nuestros productos desde cualquier
+        lugar de Argentina gracias a nuestros envíos a todo el país.
 
-        <div class="contactItem">
-          <font-awesome-icon icon="fa-solid fa-phone" />
-          <p>+54 9 2267 999999</p>
-        </div>
+        <br />
+        <br />
+        Te invitamos a explorar nuestro catálogo y descubrir los diseños únicos
+        que tenemos para ti. En Lemon Lane, estamos comprometidos con la moda y
+        la originalidad, y queremos ser tu marca de referencia.
+      </div>
+      <div id="blog3">
+        Bienvenidos a Lemon Lane, tu tienda de ropa vintage donde encontrarás
+        los diseños más exclusivos de gorras, remeras, pantalones, buzos,
+        camperas y medias para llevar tu estilo a otro nivel.
 
-        <div class="contactItem">
-          <font-awesome-icon icon="fa-solid fa-map-location-dot" />
-          <p>Bs As, Gral Madariaga Quetimporta 567</p>
-        </div>
+        <br />
+        <br />
+        En Lemon Lane creemos en la moda como una forma de expresión personal y
+        única, por eso seleccionamos cuidadosamente cada prenda para que puedas
+        encontrar aquella que se adapte a tu estilo y personalidad. Nuestra ropa
+        vintage te permitirá destacar en cualquier lugar, ya sea en una reunión
+        casual o en un evento especial.
 
+        <br />
+        <br />
+        Nos enfocamos en brindarte una experiencia de compra fácil y cómoda
+        desde cualquier dispositivo, tanto en la web como en dispositivos
+        móviles. Además, podrás acceder a nuestros productos desde cualquier
+        lugar de Argentina gracias a nuestros envíos a todo el país.
+
+        <br />
+        <br />
+        Te invitamos a explorar nuestro catálogo y descubrir los diseños únicos
+        que tenemos para ti. En Lemon Lane, estamos comprometidos con la moda y
+        la originalidad, y queremos ser tu marca de referencia.
+      </div>
+      <div id="blog4">
+        Bienvenidos a Lemon Lane, tu tienda de ropa vintage donde encontrarás
+        los diseños más exclusivos de gorras, remeras, pantalones, buzos,
+        camperas y medias para llevar tu estilo a otro nivel.
+
+        <br />
+        <br />
+        En Lemon Lane creemos en la moda como una forma de expresión personal y
+        única, por eso seleccionamos cuidadosamente cada prenda para que puedas
+        encontrar aquella que se adapte a tu estilo y personalidad. Nuestra ropa
+        vintage te permitirá destacar en cualquier lugar, ya sea en una reunión
+        casual o en un evento especial.
+
+        <br />
+        <br />
+        Nos enfocamos en brindarte una experiencia de compra fácil y cómoda
+        desde cualquier dispositivo, tanto en la web como en dispositivos
+        móviles. Además, podrás acceder a nuestros productos desde cualquier
+        lugar de Argentina gracias a nuestros envíos a todo el país.
+
+        <br />
+        <br />
+        Te invitamos a explorar nuestro catálogo y descubrir los diseños únicos
+        que tenemos para ti. En Lemon Lane, estamos comprometidos con la moda y
+        la originalidad, y queremos ser tu marca de referencia.
       </div>
     </section>
   </main>
-  <AsideVue  >
-      <template #Aside-panel >
-
-          
-      </template>
-    </AsideVue>
+  <AsideVue>
+    <template #Aside-panel>
+      <a href="#blog1" :class="{ active: page.Position === 1 }"></a>
+      <a href="#blog2" :class="{ active: page.Position === 2 }"></a>
+      <a href="#blog3" :class="{ active: page.Position === 3 }"></a>
+      <a href="#blog4" :class="{ active: page.Position === 4 }"></a>
+    </template>
+  </AsideVue>
 </template>
 
-
 <style scoped>
-
-.aboutUs{
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-  width: 81vw;
-  background-color: #afafaf;
-}
-
-.aboutUsContainer{
-  height: 40vh;
-  width: 50vw;
-  background-color: red;
-}
-
-.aboutUsTitle{
-  text-align: left;
-}
-
-.contactForm{
-  display:flex;
-}
-
-.senderInformation{
-  display:flex;
-  flex-direction: column;
-}
-
-.senderMessage{
+.aboutUs {
   display: flex;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
   flex-direction: column;
-  height: 100%;
+  width: 81vw;
 }
 
-.senderMessage textarea{
-  height: 100%;
-  resize: none;
+div {
+  font-size: 24px;
 }
 
-.contactInfo{
-  width: 50vw;
-  display:flex;
-  justify-content: space-between;
+.aboutUs div {
+  padding: 10%;
+  scroll-snap-align: start;
 }
 
-.contactItem{
-  display:flex;
-  align-items: center;
+a {
+  margin: 10px 0px;
+  padding: 0.5rem;
+  display: block;
+  background-color: grey;
+}
+
+a.active {
+  background-color: #222;
 }
 </style>
