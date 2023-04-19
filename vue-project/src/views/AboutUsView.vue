@@ -10,16 +10,16 @@ const page = reactive({
 const scrollEvent = (event: any) => {
   const main = event.target;
   console.log(page)
-  if (main.scrollTop < 800) {
+  if (main.scrollTop < 750) {
     page.Position = 1;
   }
-  if (main.scrollTop > 800 && main.scrollTop < 1700) {
+  if (main.scrollTop > 750 && main.scrollTop < 1500) {
     page.Position = 2;
   }
-  if (main.scrollTop > 1700 && main.scrollTop < 2600) {
+  if (main.scrollTop > 1500 && main.scrollTop < 2250) {
     page.Position = 3;
   }
-  if (main.scrollTop > 2600) {
+  if (main.scrollTop > 2250) {
     page.Position = 4;
   }
 };
