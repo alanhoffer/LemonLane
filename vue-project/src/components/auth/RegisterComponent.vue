@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 <template>
   <main>
     <div class="registerContainer">
-      <h1 class="registerTitle">SIGN IN</h1>
+      <h1 class="registerTitle">SIGN UP</h1>
       <div class="registerForm">
         <div class="fullname">
           <input type="text" id="yourname" placeholder="Name" />
@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
         <input type="Password" placeholder="Password" />
         <input type="Password" placeholder="Repeat Password" />
       </div>
-      <button id="signBtn">Sign In</button>
+      <button id="signBtn">Sign Up</button>
     </div>
   </main>
 </template>

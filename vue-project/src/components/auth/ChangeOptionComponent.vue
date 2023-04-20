@@ -23,7 +23,7 @@ const toggleVisible = () => {
             {{ state.isVisible ? 'You don’t have an account?':'You already have an account?' }}
         </h2>
         <button @click="toggleVisible" id="changeOptionBtn">
-            {{ state.isVisible ? 'SIGN IN':'LOG IN' }}
+            {{ state.isVisible ? 'SIGN UP':'LOG IN' }}
         </button>
     </section>
 
