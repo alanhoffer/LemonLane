@@ -19,6 +19,21 @@ import productCard from '../components/shop/productCard.vue'
           <productCard />
           <productCard />
           <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
+          <productCard />
         </div>
         <ul class="shopFilters">
           <h4>CATEGORIES</h4>
@@ -30,10 +45,21 @@ import productCard from '../components/shop/productCard.vue'
           <li>PANTS</li>
           <li>SOCKS</li>
           <h4>PRICE</h4>
-          <input placeholder="MIN" min="0"/>
-          <input placeholder="MAX" min="0"/>
-          </ul>
-        </div>
+          <div class="priceCtrl">
+
+            <input placeholder="MIN" min="0" />
+            <input placeholder="MAX" min="0" />
+          </div>
+          <h4>SIZE</h4>
+          <select name="sizeCtrl" id="sizeCtrl">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
+        </ul>
+      </div>
     </section>
 
   </main>
@@ -52,54 +78,84 @@ import productCard from '../components/shop/productCard.vue'
   font-size: 14px;
   color: #1e1e1e;
 }
-.shop{
+
+.shop {
   width: 81vw;
   height: 100vh;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-bottom: 30px;
 }
 
-.shopTitle{
+.shopTitle {
   width: 100%;
+  left: 5vw;
   text-align: left;
-}
-.shopContainer{
-  display:flex;
-  align-items: center;
+  color: #1e1e1e;
+  font-size: 48px;
+  font-weight: 100;
+  margin: 50px 0;
 }
 
-.shopList{
-  display:grid;
-  grid-template-columns: repeat(5, 1fr);
+.shopContainer {
+  display: flex;
+}
+
+.shopList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(100px, auto);
   gap: 20px;
   width: 61vw;
 }
 
-.shopFilters{
-
+.shopFilters {
+  width: 10vw;
   list-style-type: none;
 }
 
-.shopFilters h4{
-
+.shopFilters h4 {
+  margin-top: 10px;
 }
 
-.shopFilters li{
+.shopFilters li {
   font-size: 12px;
   color: grey;
 }
 
-.shopFilters li:hover{
+.shopFilters li:hover {
   font-size: 12px;
   color: red;
   cursor: pointer;
 }
 
-.shopFilters li.active{
-  color: #e1e1e1;
+.shopFilters li.active {
+  color: #1e1e1e;
 }
 
+.priceCtrl {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.priceCtrl input {
+  width: 47.5%;
+  font-size: 0.8em;
+  height: 25px;
+  color: #686868;
+  border: 1px solid #686868;
+  border-radius: 0;
+}
+
+#sizeCtrl {
+  width: 100%;
+  color: #686868;
+  border: 1px solid #686868;
+  border-radius: 0;
+  background: none;
+}
 </style>
