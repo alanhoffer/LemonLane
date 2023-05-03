@@ -8,12 +8,12 @@
             <img src="https://underwavebrand.com/wp-content/uploads/2023/03/DSC04231-1-710x1037.jpg" />
 
             <div class="cardData">
-                <h4>REMERA FALOPERA</h4>
+                <h4>REMERA SMILE</h4>
                 <p>$23123</p>
             </div>
 
             <ul class="sizes">
-                <li>S</li>
+                <li class="noStock">S</li>
                 <li>M</li>
                 <li>L</li>
                 <li>XL</li>
@@ -45,6 +45,7 @@
 }
 
 .sizes li {
+    user-select: none;
     list-style: none;
     width: 15%;
     font-size: 0.8em;
