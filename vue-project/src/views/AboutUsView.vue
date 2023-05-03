@@ -3,13 +3,14 @@ import AsideVue from "../components/Aside.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { reactive } from "vue";
 
+
 const page = reactive({
   Position: 1,
 });
 
 const scrollEvent = (event: any) => {
   const main = event.target;
-  const mainSize = main.clientHeight
+  const mainSize = main.clientHeight;
 
   if (main.scrollTop < mainSize) {
     page.Position = 1;
@@ -22,13 +23,14 @@ const scrollEvent = (event: any) => {
   }
   if (main.scrollTop >= (mainSize * 3 )) {
     page.Position = 4;
-  }
+  }      
+
 };
 </script>
 
 <template>
   <main>
-    <section class="aboutUs" v-on:scroll.native="(event) => scrollEvent(event)">
+    <section class="aboutUs" v-on:scroll.native="(event:any) => scrollEvent(event)">
       <div id="blog1">
         Bienvenidos a Lemon Lane, tu tienda de ropa vintage donde encontrarás
         los diseños más exclusivos de gorras, remeras, pantalones, buzos,
@@ -91,7 +93,7 @@ div {
   min-height: 100%;
   width: 100%;
   padding: 0px 10%;
-  scroll-snap-align: start;
+  scroll-snap-align: center;
 }
 
 a {
