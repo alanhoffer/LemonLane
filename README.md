@@ -12,16 +12,16 @@ Dentro de cada respectiva carpeta contenemos todo el proyecto realizado en cuant
 
 <h2> Herramientas utilizadas </h2>
 
-# FRONT END
+<h3>FRONT END </h3>
 HTML5
 CSS3
 VUEJS
 
-# BACK END
+<h3> BACK END </h3>
 NESTJS
 MySQL
 
-# OTROS
+<h3> OTROS </h3>
 MOCKAPI
 FIGMA
 
@@ -29,11 +29,11 @@ FIGMA
 <h2> Links & Referencias </h2>
 
 
-# DEPLOY EN VERCEL DEL PROYECTO
+<h3> DEPLOY EN VERCEL DEL PROYECTO </h3>
 https://lemon-lane.vercel.app/
 
-# FIGMA
+<h3> FIGMA </h3>
 https://www.figma.com/file/IA1gpW8no6sakZ6MtpGHkc/Lemon-Lane?t=S1gxMdv74siTojDW-0
 
-# DOCUMENTACION
+<h3> DOCUMENTACION </h3>
 https://docs.google.com/document/d/1tcEOlqu_TBODP5SSV5aEaXwzf4JaG9K8jiMPkwhpbvg/edit
