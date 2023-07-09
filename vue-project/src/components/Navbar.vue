@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
           <RouterLink to="/shop">SHOP</RouterLink>
           <RouterLink to="/about">ABOUT US</RouterLink>
           <RouterLink to="/contact">CONTACT</RouterLink>
+          <RouterLink to="/product">PRODUCT</RouterLink>
         </nav>
       </div>
       <div class="social-media">
