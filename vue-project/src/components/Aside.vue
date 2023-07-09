@@ -23,7 +23,10 @@ const routeSelector = () => {
 
 
 
-        <slot name="Aside-panel" />
+
+        <slot name="Aside-panel">
+        </slot>
+
         <RouterLink class="cartLink" to='/cart' >
             <img src="../assets/icons/bag.svg" />
         </RouterLink>
