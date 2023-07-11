@@ -14,7 +14,7 @@ export class UserService {
     "role":"admin"
   }];
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<Object> {
     const newUser: User = {
       id: this.users[this.users.length - 1].id + 1,
       email: createUserDto.email,
@@ -27,7 +27,7 @@ export class UserService {
     await this.validateUser(newUser);
 
     this.users.push(newUser);
-    return newUser;
+    return {email: newUser.email};
   }
 
   findAll(): User[] {
