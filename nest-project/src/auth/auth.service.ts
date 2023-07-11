@@ -12,7 +12,7 @@ export class AuthService {
     const user = this.userService.findByEmail(loginAuthDto.email);
 
     if(user && user.password == loginAuthDto.password){
-      return user.email;
+      return {email: user.email};
     }
 
     throw new BadRequestException('User not found');
