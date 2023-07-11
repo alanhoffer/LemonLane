@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable,BadRequestException } from '@nestjs/common';
 import { CreateStockDto } from './dto/create-stock.dto';
 import { UpdateStockDto } from './dto/update-stock.dto';
 import { Stock } from './entities/stock.entity';
@@ -47,10 +47,29 @@ export class StockService {
   }
 
   update(id: number, updateStockDto: UpdateStockDto) {
-    return `This action updates a #${id} stock`;
+    const stockIndex = this.stockList.findIndex((stock) => stock.id === id);
+
+    if (!stockIndex && stockIndex != 0) {
+      throw new BadRequestException('Product not found');
+    }
+
+    let updatedStock: Stock = { ...this.stockList[stockIndex], ...updateStockDto };
+
+    this.stockList[stockIndex] = updatedStock
+
+    return updatedStock;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} stock`;
+
+    const stockIndex = this.stockList.findIndex((stock) => stock.id === id);
+
+    if (!stockIndex && stockIndex != 0) {
+      throw new BadRequestException('Product not found');
+    }
+
+    this.stockList.splice(stockIndex, 1);
+
+    return `This action removes a #${id} product`;
   }
 }

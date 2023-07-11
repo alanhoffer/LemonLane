@@ -36,7 +36,7 @@ export class ProductService {
 
 
   async create(createProductDto: CreateProductDto) {
-    
+
     const newProduct: Product = {
       id: this.productList[this.productList.length - 1].id + 1,
       name: createProductDto.name,
@@ -56,19 +56,38 @@ export class ProductService {
     return this.productList;
   }
 
-  findOne(id: number) {    
+  findOne(id: number) {
     const product = this.productList.find(product => product.id == id);
     return product;
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    const userIndex = this.productList.findIndex((user) => user.id === id);
+
+    if (!userIndex && userIndex != 0) {
+      throw new BadRequestException('Product not found');
+    }
+
+    let updatedProduct: Product = { ...this.productList[userIndex], ...updateProductDto };
+
+    this.productList[userIndex] = updatedProduct
+
+    return updatedProduct;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} product`;
+
+    const productIndex = this.productList.findIndex((user) => user.id === id);
+
+    if (!productIndex && productIndex != 0) {
+      throw new BadRequestException('Product not found');
+    }
+
+    this.productList.splice(productIndex, 1);
+
+    return this.productList;
   }
-  
+
   private async validateProduct(product: Product): Promise<void> {
     const errors = await validate(product);
 

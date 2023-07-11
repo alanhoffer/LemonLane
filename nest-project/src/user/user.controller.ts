@@ -13,9 +13,11 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ValidationPipe } from '../pipes/validation.pipe';
+import { LoginAuthDto } from 'src/auth/dto/login-auth.dto';
 
 @Controller('user')
 export class UserController {
+  authService: any;
   constructor(private readonly userService: UserService) {}
 
   @Post()
@@ -56,4 +58,10 @@ export class UserController {
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
+
+  @Post('login')
+  login(@Body() loginAuthDto: LoginAuthDto) {
+    return this.userService.login(loginAuthDto);
+  }
+
 }
