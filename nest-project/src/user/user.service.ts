@@ -7,6 +7,7 @@ import { validate } from 'class-validator';
 @Injectable()
 export class UserService {
   private users: User[] = [{
+    "id":0,
     "email": "admin@gmail.com",
     "password": "12345678",
     "name": "Francisco",
