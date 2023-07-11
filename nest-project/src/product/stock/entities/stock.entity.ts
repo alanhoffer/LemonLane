@@ -3,6 +3,6 @@ export class Stock {
     color:string;
     size:string;
     quantity:number;
-    image:string;
+    image: string[];
     productId:number;
 }

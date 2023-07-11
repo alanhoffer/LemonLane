@@ -16,7 +16,7 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser: User = {
-      id: this.users.length,
+      id: this.users[this.users.length - 1].id + 1,
       email: createUserDto.email,
       name: createUserDto.name,
       lname: createUserDto.lname,
