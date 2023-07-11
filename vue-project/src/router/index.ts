@@ -48,7 +48,7 @@ const router = createRouter({
     },
     {
       path: '/product',
-      name: 'auth',
+      name: 'product',
       component: ProductView
     }
   ]

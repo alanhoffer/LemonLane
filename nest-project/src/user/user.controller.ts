@@ -12,7 +12,7 @@ import { UserService } from './user.service';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ValidationPipe } from './pipes/validation.pipe';
+import { ValidationPipe } from '../pipes/validation.pipe';
 
 @Controller('user')
 export class UserController {
@@ -33,12 +33,13 @@ export class UserController {
   findOne(@Param('id') id: string) {
     const foundedUser = this.userService.findOne(+id);
 
-    if (foundedUser) {
+    if (!foundedUser) {
       return 'OK';
     }
 
-    return 'FAILED';
+    return foundedUser;
   }
+
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {

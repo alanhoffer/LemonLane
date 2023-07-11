@@ -8,7 +8,21 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 <template>
     <main>
         <section class="productView">
-ASDSAD
+            <div class="slider"></div>
+            <div class="productContainer">
+                <h2 class="name"></h2>
+                <div class="rate"></div>
+                <div class="price"></div>
+                <div class="description">
+                    <h3>BRAND</h3>
+                    <p></p>
+                </div>
+                <div class="separator"></div>
+                <div class="sizeContainer">
+                    <h3>SIZE</h3>
+                    <p>SIZE GUIDE</p>
+                </div>
+            </div>
         </section>
     </main>
     <Aside>

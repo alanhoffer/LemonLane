@@ -3,8 +3,7 @@
 import RegisterComponent from '@/components/auth/RegisterComponent.vue';
 import ChangeOptionComponent from '@/components/auth/ChangeOptionComponent.vue';
 import LoginComponent from '@/components/auth/LoginComponent.vue';
-import AsideVue from '../components/Aside.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import Aside from '../components/Aside.vue';
 
 
 </script>
@@ -12,28 +11,27 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 <template>
   <main>
     <section class="authView">
-        <ChangeOptionComponent  />
+      <ChangeOptionComponent />
 
 
-        <LoginComponent />
-        <RegisterComponent />
+      <LoginComponent />
+      <RegisterComponent />
     </section>
   </main>
-  <AsideVue  >
-      <template #Aside-panel >
+  <Aside>
+    <template #Aside-panel>
 
-          
-      </template>
-    </AsideVue>
+
+    </template>
+  </Aside>
 </template>
 
 <style scoped>
-.authView{
-    display:flex;
-    align-items: center;
-    width: 81vw;
-    height: 100vh;
+.authView {
+  display: flex;
+  align-items: center;
+  width: 81vw;
+  height: 100vh;
 
 }
-
 </style>

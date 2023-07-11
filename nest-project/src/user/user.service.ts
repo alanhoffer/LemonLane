@@ -6,7 +6,13 @@ import { validate } from 'class-validator';
 
 @Injectable()
 export class UserService {
-  private users: User[] = [];
+  private users: User[] = [{
+    "email": "admin@gmail.com",
+    "password": "12345678",
+    "name": "Francisco",
+    "lname": "Guerrero",
+    "role":"admin"
+  }];
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser: User = {
@@ -14,7 +20,8 @@ export class UserService {
       email: createUserDto.email,
       name: createUserDto.name,
       lname: createUserDto.lname,
-      password: createUserDto.password
+      password: createUserDto.password,
+      role: "user"
     };
 
     await this.validateUser(newUser);
@@ -32,18 +39,22 @@ export class UserService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto): User {
-    let user = this.users.find((user) => user.id === id);
+  findByEmail(email: string): User {
+    const user = this.users.find((user) => user.email === email);
+    return user;
+  }
+  
 
-    if (!user) {
+  update(id: number, updateUserDto: UpdateUserDto): User {
+    const userIndex = this.users.findIndex((user) => user.id === id);
+
+    if (!userIndex && userIndex != 0) {
       throw new BadRequestException('User not found');
     }
-    let updatedUser: User = {...user,
-      email: updateUserDto.email,
-      name: updateUserDto.name,
-      lname: updateUserDto.lname,
-      password: updateUserDto.password
-    };
+
+    let updatedUser: User = { ...this.users[userIndex], ...updateUserDto };
+
+    this.users[userIndex] = updatedUser
 
     return updatedUser;
   }

@@ -4,5 +4,5 @@ export class User {
     name:string;
     lname:string;
     password:string;
-    role?: string = "user";
+    role: string;
 }
