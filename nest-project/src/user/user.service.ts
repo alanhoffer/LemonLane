@@ -15,7 +15,7 @@ export class UserService {
     "role":"admin"
   }];
 
-  async create(createUserDto: CreateUserDto): Promise<Object> {
+  async create(createUserDto: CreateUserDto): Promise<any> {
     const newUser: User = {
       id: this.users[this.users.length - 1].id + 1,
       email: createUserDto.email,
