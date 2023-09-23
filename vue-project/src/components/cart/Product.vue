@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
             <img alt="product image" src="https://i.pinimg.com/originals/2f/f7/7d/2ff77d149b32f6ac6b6664f9181ca803.png" />
             <div className="name">WILD FLOWER</div>
             <div className="size">M</div>
-            <div className="color"></div>
+            <div className="color" data-color="Rojo"></div>
             <div className="price">$120.0</div>
             <font-awesome-icon icon="fa-solid fa-trash" />
         </div>
@@ -24,13 +24,14 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     align-items: center;
     justify-content: space-between;
     height: 150px;
-    width: 100%;
-    margin-bottom:10px;
+    width: 80%;
+    margin: auto;
+    margin-bottom:20px;
 }
 
 .cartProduct img {
-    height: 100%;
-    width: 140px;
+    height: 80%;
+    aspect-ratio: 2/2;
     object-fit: cover;
 }
 
@@ -38,34 +39,53 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 .cartProduct .name {
     color: #000000;
     font-size: 26px;
-    font-weight: 100;
+    font-weight: 200;
 
 }
 
 .cartProduct .size {
     color: #000000;
-    font-family: "Poppins-Thin", Helvetica;
     font-size: 26px;
-    font-weight: 100;
+    font-weight: 200;
 }
 
 .cartProduct .price {
     color: #646464;
-    font-family: "Poppins-Regular", Helvetica;
     font-size: 26px;
-    font-weight: 400;
+    font-weight: 200;
 }
 
 
 .cartProduct .color {
-    background-color: #ffffff;
-    border: 3px solid;
-    border-color: #000000;
-    height: 26px;
-    width: 26px;
+    background-color: red;
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: #646464;
+    height: 20px;
+    width: 20px;
 }
 
-.cartProduct .svg {
+.cartProduct .color:hover::after {
+  content: attr(data-color);
+  display: block;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  background-color: #222222;
+  padding: 5px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+
+.cartProduct .svg-inline--fa :hover {
+  color: #c42929;
+  cursor: pointer;
+}
+
+.cartProduct .svg-inline--fa {
     height: 20px;
     width: 20px;
 }

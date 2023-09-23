@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { defineProps } from 'vue';
 
+const props = defineProps({
+  buttonText: {
+    type: String,
+  },
+});
 </script>
 
 <template>
 
-        <button id="logBtn"> Log in </button>
+        <button id="logBtn">{{ buttonText }}</button>
 </template>
 
 

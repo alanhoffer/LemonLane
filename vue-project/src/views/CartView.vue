@@ -12,10 +12,12 @@ import SolidButton from '@/components/SolidButton.vue'
         <Product />
         <Product />
         <Product />
+        <Product />
+        <Product />
       </div>
       <div class="buyAll">
         <div class="totalPrice">TOTAL: $213982.23</div>
-        <SolidButton />
+        <SolidButton buttonText="Buy"/>
       </div>
     </section>
   </main>
