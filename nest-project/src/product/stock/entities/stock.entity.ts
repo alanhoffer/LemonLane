@@ -1,8 +1,23 @@
+import { Column, Entity, PrimaryColumn } from "typeorm";
+
+@Entity('product_stock')
 export class Stock {
+
+    @PrimaryColumn()
     id:number;
+
+    @Column()
     color:string;
+
+    @Column()
     size:string;
+
+    @Column()
     quantity:number;
-    image: string[];
+
+    @Column()
+    image: string;
+
+    @Column()
     productId:number;
 }

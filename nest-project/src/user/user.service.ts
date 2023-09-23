@@ -13,7 +13,8 @@ export class UserService {
     "password": "12345678",
     "name": "Francisco",
     "lname": "Guerrero",
-    "role":"admin"
+    "role":"admin",
+    "addresses": [],
   }];
 
   async create(createUserDto: CreateUserDto): Promise<any> {
@@ -23,7 +24,8 @@ export class UserService {
       name: createUserDto.name,
       lname: createUserDto.lname,
       password: createUserDto.password,
-      role: "user"
+      role: "user",
+      addresses: [],
     };
 
     await this.validateUser(newUser);

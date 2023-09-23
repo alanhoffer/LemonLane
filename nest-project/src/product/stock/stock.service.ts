@@ -12,7 +12,7 @@ export class StockService {
       color: "Red",
       size: "M",
       quantity: 10,
-      image: ["red_cloth1.jpg", "red_cloth2.jpg"],
+      image: "red_cloth1.jpg",
       productId: 1
     },
     {
@@ -20,7 +20,7 @@ export class StockService {
       color: "Blue",
       size: "L",
       quantity: 5,
-      image: ["blue_cloth1.jpg", "blue_cloth2.jpg"],
+      image: "blue_cloth1.jpg",
       productId: 2
     },
     {
@@ -28,7 +28,7 @@ export class StockService {
       color: "Black",
       size: "S",
       quantity: 8,
-      image: ["black_cloth1.jpg", "black_cloth2.jpg"],
+      image: "black_cloth1.jpg",
       productId: 1
     },
   ];
