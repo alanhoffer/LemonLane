@@ -26,7 +26,6 @@ import { OrderItem } from './order/order-item/entities/order-item.entity';
     entities: [User, Product, Address, Giftcard, Category, Collection, Stock, Order, OrderItem],
     database: 'lemon-lane',
     synchronize: true,
-    logging: true,
     ssl: true, 
   }),
     UserModule,

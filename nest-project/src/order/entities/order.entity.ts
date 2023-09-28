@@ -4,17 +4,17 @@ import { Column, Entity, PrimaryColumn } from "typeorm";
 export class Order {
 
     @PrimaryColumn()
-    id:number;
+    id: number;
 
     @Column()
-    status:string;
+    status: string;
 
     @Column()
-    date:Date;
+    date: Date;
 
     @Column()
-    userId:number;
+    userId: number;
 
-    @Column({nullable:true})
-    giftcard?:string;
+    @Column({ nullable: true })
+    giftcard?: string;
 }

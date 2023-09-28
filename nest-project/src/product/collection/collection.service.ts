@@ -2,63 +2,55 @@ import { Injectable } from '@nestjs/common';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
 import { Collection } from './entities/collection.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CollectionService {
 
-  private collections: Collection[] = [
-    {
-      id: 1,
-      name: "Winter Collection",
-      image: "winter.jpg",
-      description: "Stay warm and stylish this winter with our latest collection."
-    },
-    {
-      id: 2,
-      name: "Spring Collection",
-      image: "spring.jpg",
-      description: "Welcome the season of renewal with our vibrant and trendy spring collection."
-    },
-    {
-      id: 3,
-      name: "Summer Collection",
-      image: "summer.jpg",
-      description: "Beat the heat with our cool and comfortable summer collection."
-    },
-    {
-      id: 4,
-      name: "Autumn Collection",
-      image: "autumn.jpg",
-      description: "Embrace the colors of autumn with our cozy and fashionable collection."
-    },
-    {
-      id: 5,
-      name: "Athleisure Collection",
-      image: "athleisure.jpg",
-      description: "Combine style and comfort with our athleisure collection for an active lifestyle."
+  constructor(@InjectRepository(Collection) private collectionRepository: Repository<Collection>) {
+
+  }
+
+  async create(createCollectionDto: CreateCollectionDto) {
+    const collection = await this.collectionRepository.findOne({ where: { name: createCollectionDto.name } })
+    if (collection) {
+      return 
     }
-  ];
-
-
-
-  create(createCollectionDto: CreateCollectionDto) {
-    return 'This action adds a new collection';
+    try {
+      const newCollection = this.collectionRepository.create(createCollectionDto)
+      return this.collectionRepository.save(newCollection)
+    }
+    catch (error) {
+      return error
+    }
   }
 
   findAll() {
-    return this.collections;
+    return this.collectionRepository.find();
   }
 
-  findOne(id: number) {
-    const collection = this.collections.find(collection => collection.id == id);
-    return collection;
+  async findOne(id: number) {
+    const foundedCollection = await this.collectionRepository.findOne({ where: { id } })
+
+    if (!foundedCollection) {
+      return;
+    }
+
+    return foundedCollection
   }
 
   update(id: number, updateCollectionDto: UpdateCollectionDto) {
     return `This action updates a #${id} collection`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} collection`;
+  async remove(id: number) {
+    const foundedCollection = await this.collectionRepository.findOne({ where: { id } })
+
+    if (!foundedCollection) {
+      return ;
+    }
+
+    return this.collectionRepository.delete({ id })
   }
 }

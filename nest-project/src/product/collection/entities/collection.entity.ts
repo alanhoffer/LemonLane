@@ -4,14 +4,15 @@ import { Column, Entity, PrimaryColumn } from "typeorm";
 export class Collection {
 
     @PrimaryColumn()
-    id:number;
+    id: number;
 
-    @Column()
-    name:string;
+    @Column({ type: 'varchar', length: 100 })
+    name: string;
 
-    @Column()
-    image:string;
+    @Column({ type: 'varchar', length: 255 })
+    image: string;
 
-    @Column()
-    description:string;
+    @Column({ type: 'varchar', length: 255 })
+    description: string;
+    
 }
