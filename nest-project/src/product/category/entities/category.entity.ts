@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "src/product/entities/product.entity";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('category')
@@ -9,6 +10,10 @@ export class Category {
 
     @Column({ unique: true, type: 'varchar', length: 100 })
     name: string;
+
+    @OneToOne(() => Product, product => product.categoryId) 
+    @JoinColumn({ name: "productId" })
+    product: Product;
 
     constructor(name: string) {
         this.name = name;

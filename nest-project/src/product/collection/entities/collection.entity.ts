@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Product } from "src/product/entities/product.entity";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
 
 @Entity('collection')
 export class Collection {
@@ -15,4 +16,7 @@ export class Collection {
     @Column({ type: 'varchar', length: 255 })
     description: string;
     
+    @OneToOne(() => Product, product => product.collectionId) 
+    @JoinColumn({ name: "productId" })
+    product: Product;
 }
