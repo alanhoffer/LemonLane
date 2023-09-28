@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@nestjs/jwt": "^10.1.1",
+    "@nestjs/typeorm": "^10.0.0",
+    "bcrypt": "^5.1.1",
+    "typeorm": "^0.3.17"
+  }
+}

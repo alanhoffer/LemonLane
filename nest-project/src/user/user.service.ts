@@ -1,94 +1,42 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { validate } from 'class-validator';
-import { LoginAuthDto } from 'src/auth/dto/login-auth.dto';
+import { Repository } from 'typeorm';
+import { UserDto } from '../auth/dto/user.dto';
 
 @Injectable()
 export class UserService {
-  private users: User[] = [{
-    "id":0,
-    "email": "admin@gmail.com",
-    "password": "12345678",
-    "name": "Francisco",
-    "lname": "Guerrero",
-    "role":"admin",
-    "addresses": [],
-  }];
+  constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+  ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<any> {
-    const newUser: User = {
-      id: this.users[this.users.length - 1].id + 1,
-      email: createUserDto.email,
-      name: createUserDto.name,
-      lname: createUserDto.lname,
-      password: createUserDto.password,
-      role: "user",
-      addresses: [],
-    };
-
-    await this.validateUser(newUser);
-
-    this.users.push(newUser);
-    return {email: newUser.email};
+  create(userDTO: UserDto) {
+    return this.userRepository.save(userDTO);
   }
 
-  findAll(): User[] {
-    return this.users;
+  findAll() {
+    return this.userRepository.find();
   }
 
-  findOne(id: number): User {
-    const user = this.users.find((user) => user.id === id);
-    return user;
+  findByEmail(email: string) {
+    return this.userRepository.findOneBy({ email });
   }
 
-  findByEmail(email: string): User {
-    const user = this.users.find((user) => user.email === email);
-    return user;
-  }
-  
-
-  update(id: number, updateUserDto: UpdateUserDto): User {
-    const userIndex = this.users.findIndex((user) => user.id === id);
-
-    if (!userIndex && userIndex != 0) {
-      throw new BadRequestException('User not found');
-    }
-
-    let updatedUser: User = { ...this.users[userIndex], ...updateUserDto };
-
-    this.users[userIndex] = updatedUser
-
-    return updatedUser;
+  findByEmailWithPassword(email: string) {
+    return this.userRepository.findOne({
+      where: { email },
+      select: ['id', 'name', 'email', 'password', 'role'],
+    });
   }
 
-  remove(id: number): string {
-    this.users = this.users.filter((user) => user.id !== id);
-    return `User with ID ${id} has been removed`;
+  findOne(id: number) {
+    return this.userRepository.findOne({
+      where: {id}
+    });
   }
 
-  
-  login(loginAuthDto: LoginAuthDto) {
-
-    const user = this.findByEmail(loginAuthDto.email);
-
-    if(user && user.password == loginAuthDto.password){
-      return {email: user.email};
-    }
-
-    throw new BadRequestException('User not found');
+  remove(id: number) {
+    return this.userRepository.delete(id);
   }
 
-  
-  private async validateUser(user: User): Promise<void> {
-    const errors = await validate(user);
-
-    if (errors.length > 0) {
-      throw new BadRequestException('Validation failed');
-    }
-  }
-
-
-  
 }
