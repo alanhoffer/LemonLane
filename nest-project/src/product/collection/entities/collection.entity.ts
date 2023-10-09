@@ -11,9 +11,6 @@ export class Collection {
     name: string;
 
     @Column({ type: 'varchar', length: 255 })
-    image: string;
-
-    @Column({ type: 'varchar', length: 255 })
     description: string;
     
     @OneToOne(() => Product, product => product.collectionId) 

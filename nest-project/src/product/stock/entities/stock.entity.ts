@@ -16,9 +16,6 @@ export class Stock {
     @Column()
     quantity:number;
 
-    @Column({ type: 'varchar', length: 255 })
-    image: string;
-
     @Column()
     productId:number;
 

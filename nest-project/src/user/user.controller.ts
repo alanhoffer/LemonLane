@@ -19,11 +19,6 @@ export class UserController {
   authService: any;
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  @UsePipes(new ValidationPipe())
-  async create(@Body() createUserDto: UserDto): Promise<User> {
-    return this.userService.create(createUserDto);
-  }
 
   @Get()
   findAll() {
@@ -33,10 +28,6 @@ export class UserController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     const foundedUser = this.userService.findOne(+id);
-
-    if (!foundedUser) {
-      return 'OK';
-    }
 
     return foundedUser;
   }
