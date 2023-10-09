@@ -34,7 +34,7 @@ export class CategoryService {
       const foundedCategory = await this.categoryRepository.findOne({ where: { id } })
 
       if (!foundedCategory) {
-        return new HttpException('Error en la busqueda de la categora' + id, HttpStatus.NOT_FOUND);
+        return new HttpException('Error en la busqueda de la categoria' + id, HttpStatus.NOT_FOUND);
       }
 
       // else will return the user founded

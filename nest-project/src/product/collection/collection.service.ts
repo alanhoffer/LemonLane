@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
 import { Collection } from './entities/collection.entity';
@@ -21,8 +21,9 @@ export class CollectionService {
       const newCollection = this.collectionRepository.create(createCollectionDto)
       return this.collectionRepository.save(newCollection)
     }
-    catch (error) {
-      return error
+    catch (error) {        
+      return new HttpException('Error: ', error);
+
     }
   }
 
@@ -34,7 +35,7 @@ export class CollectionService {
     const foundedCollection = await this.collectionRepository.findOne({ where: { id } })
 
     if (!foundedCollection) {
-      return;
+      return new HttpException('Error no se encontro la collecion', HttpStatus.NOT_FOUND);
     }
 
     return foundedCollection
@@ -48,7 +49,7 @@ export class CollectionService {
     const foundedCollection = await this.collectionRepository.findOne({ where: { id } })
 
     if (!foundedCollection) {
-      return ;
+      return new HttpException('Error no se encontro la collecion', HttpStatus.NOT_FOUND);
     }
 
     return this.collectionRepository.delete({ id })

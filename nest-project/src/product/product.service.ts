@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
@@ -35,12 +35,10 @@ export class ProductService {
     const foundedProduct = await this.productRepository.findOne({ where: { id } })
 
     if (!foundedProduct) {
-      return;
+      return new HttpException('Error no se encontro el producto', HttpStatus.NOT_FOUND);
     }
 
     return this.productRepository.delete({ id })
   }
-
-
 
 }

@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateStockDto } from './dto/create-stock.dto';
 import { UpdateStockDto } from './dto/update-stock.dto';
 import { Stock } from './entities/stock.entity';
@@ -28,7 +28,7 @@ export class StockService {
     const foundedStock = await this.stockRepository.findOne({ where: { id } })
 
     if (!foundedStock) {
-      return;
+      return new HttpException('Error no se encontro el stock', HttpStatus.NOT_FOUND);
     }
 
     return foundedStock
@@ -43,7 +43,7 @@ export class StockService {
     const foundedStock = await this.stockRepository.findOne({ where: { id } })
 
     if (!foundedStock) {
-      return;
+      return new HttpException('Error no se encontro el stock', HttpStatus.NOT_FOUND);
     }
 
     return this.stockRepository.delete({ id })
