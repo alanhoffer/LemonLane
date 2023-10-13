@@ -7,49 +7,136 @@ import CartView from '../views/CartView.vue'
 import AboutUsView from '../views/AboutUsView.vue'
 import AuthView from '../views/AuthView.vue'
 import ProductView from '@/views/ProductView.vue'
+import AdminView from '@/views/admin/AdminView.vue'
+import NavbarVue from '@/components/Navbar.vue'
+
+
+import NavbarAdminVue from '@/components/admin/Navbar.vue'
+import DashboardAdminView from '@/views/admin/DashboardView.vue'
+import UserAdminView from '@/views/admin/UserView.vue'
+import ProductAdminView from '@/views/admin/ProductView.vue'
+import OrderAdminView from '@/views/admin/OrderView.vue'
+import CategoryAdminView from '@/views/admin/CategoryView.vue'
+import CollectionAdminView from '@/views/admin/CollectionView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      components: {
+        default: HomeView,
+        navbar: NavbarVue
+      },
     },
     {
       path: '/shop',
       name: 'shop',
-      component: ShopView
+      components: {
+        default: ShopView,
+        navbar: NavbarVue
+      }
     },
     {
       path: '/about',
       name: 'about',
-      component: AboutUsView
+      components: {
+        default: AboutUsView,
+        navbar: NavbarVue
+      }
     },
     {
       path: '/contact',
       name: 'contact',
-      component: ContactView
+      components: {
+        default: ContactView,
+        navbar: NavbarVue
+      }
     },
     {
       path: '/cart',
       name: 'cart',
-      component: CartView
+      components: {
+        default: CartView,
+        navbar: NavbarVue
+      }
     },
     {
       path: '/profile',
       name: 'profile',
-      component: ProfileView
+      components: {
+        default: ProfileView,
+        navbar: NavbarVue
+      }
     },
     {
       path: '/auth',
       name: 'auth',
-      component: AuthView
+      components: {
+        default: AuthView,
+        navbar: NavbarVue
+      }
     },
     {
       path: '/product',
       name: 'product',
-      component: ProductView
+      components: {
+        default: ProductView,
+        navbar: NavbarVue
+      }
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      components: {
+        default: AdminView,
+        navbar: NavbarAdminVue
+      },
+      children: [
+        {
+          path: '',
+          name: 'dashboard',
+          components: {
+            default: DashboardAdminView
+          }
+        },
+        {
+          path: 'user',
+          name: 'adminUser',
+          components: {
+            default: UserAdminView
+          }
+        },
+        {
+          path: 'product',
+          name: 'adminProduct',
+          components: {
+            default: ProductAdminView
+          }
+        },
+        {
+          path: 'order',
+          name: 'adminOrder',
+          components: {
+            default: OrderAdminView
+          }
+        },
+        {
+          path: 'category',
+          name: 'adminCategory',
+          components: {
+            default: CategoryAdminView
+          }
+        },        {
+          path: 'collection',
+          name: 'adminCollection',
+          components: {
+            default: CollectionAdminView
+          }
+        }
+      ]
     }
   ]
 })
