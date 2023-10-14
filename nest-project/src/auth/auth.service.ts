@@ -13,7 +13,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register({ name, email, password }: UserDto) {
+  async register({ name, lname, email, password }: UserDto) {
     const user = await this.userService.findByEmail(email);
 
     if (user) {
@@ -22,8 +22,8 @@ export class AuthService {
 
     return await this.userService.create({
       name,
+      lname,
       email,
-      roles: [Role.User],
       password: await bcrypt.hash(password, 10),
     });
   }
@@ -40,7 +40,7 @@ export class AuthService {
       throw new UnauthorizedException('Wrong Password.');
     }
 
-    const payload = { email: user.email, role: user.role };
+    const payload = { email: user.email };
     const access_token = await this.jwtService.signAsync(payload);
 
     return {

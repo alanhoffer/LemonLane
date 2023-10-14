@@ -9,27 +9,32 @@ import { diskStorage } from 'multer';
 export class CollectionController {
   constructor(private readonly collectionService: CollectionService) { }
 
-  @Post()
-  @UseInterceptors(FileInterceptor('file',
-    {
-      storage: diskStorage({
-        destination: 'public/collection/img/',
-        filename: (req, file, cb) => {
-          cb(null, file.originalname);
-        },
-      }),
-    }))
-  create(
-    @Body() createCollectionDto: CreateCollectionDto,
+
+  // @Post()
+  // async create(@Body() createCollectionDto: CreateCollectionDto) {
+  //   return await this.collectionService.create(createCollectionDto);
+  // }
+
+  @Post('load/:id')
+  @UseInterceptors(FileInterceptor('file'))
+  async loadImage(
+    @Param('id') id: number,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
-          new MaxFileSizeValidator({ maxSize: 5000 }),
-          new FileTypeValidator({ fileType: 'image/jpeg' }),
+          new MaxFileSizeValidator({ maxSize: 50000 }),
+          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
         ],
       }),
     )
-    file: Express.Multer.File,) {
+    file: Express.Multer.File) {
+      console.log(id, file)
+    await this.collectionService.loadImage(id, file)
+
+  }
+
+  @Post()
+  create(@Body() createCollectionDto: CreateCollectionDto,) {
     return this.collectionService.create(createCollectionDto);
   }
 

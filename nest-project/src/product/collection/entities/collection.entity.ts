@@ -1,10 +1,15 @@
 import { Product } from "src/product/entities/product.entity";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('collection')
 export class Collection {
 
-    @PrimaryColumn()
+    constructor(name:string, description:string){
+        this.name = name;
+        this.description = description;
+    }
+
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column({ type: 'varchar', length: 100 })

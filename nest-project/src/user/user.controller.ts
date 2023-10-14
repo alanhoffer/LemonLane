@@ -10,14 +10,11 @@ import {
   Put
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from './entities/user.entity';
-import { UserDto } from '../auth/dto/user.dto';
-import { ValidationPipe } from '../pipes/validation.pipe';
 
 @Controller('user')
 export class UserController {
   authService: any;
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
 
   @Get()

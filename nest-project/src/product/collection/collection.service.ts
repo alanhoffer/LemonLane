@@ -4,6 +4,9 @@ import { UpdateCollectionDto } from './dto/update-collection.dto';
 import { Collection } from './entities/collection.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as fs from 'fs'
+import * as path from 'path'
+
 
 @Injectable()
 export class CollectionService {
@@ -13,19 +16,29 @@ export class CollectionService {
   }
 
   async create(createCollectionDto: CreateCollectionDto) {
-    const collection = await this.collectionRepository.findOne({ where: { name: createCollectionDto.name } })
+    const collection = await this.collectionRepository.findOne({ where: { name: createCollectionDto.name } });
+
     if (collection) {
-      return 
+      return "ya existe"
     }
+
     try {
-      const newCollection = this.collectionRepository.create(createCollectionDto)
-      return this.collectionRepository.save(newCollection)
-    }
-    catch (error) {        
-      return new HttpException('Error: ', error);
+      const newCollection = await this.collectionRepository.save(new Collection(createCollectionDto.name, createCollectionDto.description));
+
+      const folder = `${newCollection.id}`;
+      const path = './public/collection';
+      const url = path + '/' + folder;
+
+      fs.mkdirSync(url, { recursive: true });
+
+
 
     }
+    catch (error) {
+      return "error al crear.";
+    }
   }
+
 
   findAll() {
     return this.collectionRepository.find();
@@ -41,8 +54,23 @@ export class CollectionService {
     return foundedCollection
   }
 
-  update(id: number, updateCollectionDto: UpdateCollectionDto) {
-    return `This action updates a #${id} collection`;
+  async update(id: number, updateCollectionDto: UpdateCollectionDto): Promise<Collection | HttpException> {
+    const foundedCollection = await this.collectionRepository.findOne({ where: { id } });
+
+    if (!foundedCollection) {
+      return new HttpException('Error no se encontro la collecion', HttpStatus.NOT_FOUND);
+    }
+
+    if (updateCollectionDto.name) {
+      foundedCollection.name = updateCollectionDto.name;
+    }
+    if (updateCollectionDto.description) {
+      foundedCollection.description = updateCollectionDto.description;
+    }
+
+    await this.collectionRepository.save(foundedCollection);
+
+    return foundedCollection;
   }
 
   async remove(id: number) {
@@ -53,5 +81,23 @@ export class CollectionService {
     }
 
     return this.collectionRepository.delete({ id })
+  }
+
+
+  async loadImage(id, file) {
+
+    try {
+
+      const path = `./public/collection/${id}/${file.originalname}`;
+
+      await fs.writeFileSync(path, file.buffer)
+
+    }
+    catch (error) {
+
+      return error
+
+    }
+
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, BadRequestException, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import { CreateStockDto } from './dto/create-stock.dto';
 import { UpdateStockDto } from './dto/update-stock.dto';
 import { Stock } from './entities/stock.entity';
@@ -34,9 +34,26 @@ export class StockService {
     return foundedStock
   }
 
-  update(id: number, updateStockDto: UpdateStockDto) {
+  async update(id: number, updateStockDto: UpdateStockDto): Promise<Stock> {
+    const stock = await this.stockRepository.findOne({ where: { id } });
 
-    return `This action updates a #${id} collection`;
+    if (!stock) {
+      throw new NotFoundException(`El registro de stock con el ID ${id} no se encontró.`);
+    }
+
+    if (updateStockDto.color) {
+      stock.color = updateStockDto.color;
+    }
+    if (updateStockDto.size) {
+      stock.size = updateStockDto.size;
+    }
+    if (updateStockDto.quantity) {
+      stock.quantity = updateStockDto.quantity;
+    }
+
+    await this.stockRepository.save(stock);
+
+    return stock;
   }
 
   async remove(id: number) {

@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
 import { AuthModule } from './auth/auth.module';
+import { CollectionModule } from './product/collection/collection.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -22,7 +23,8 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     ProductModule,
     OrderModule,
-    AuthModule
+    AuthModule,
+    CollectionModule
   ],
   controllers: [AppController],
   providers: [AppService],
