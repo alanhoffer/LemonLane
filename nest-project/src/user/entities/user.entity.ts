@@ -1,6 +1,7 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Address } from "../address/entities/address.entity";
 import { Role } from "src/auth/enum/role.enum";
+import { Order } from "src/order/entities/order.entity";
 
 @Entity('user')
 export class User {
@@ -26,10 +27,16 @@ export class User {
     @Column()
     lname: string;
 
+    @CreateDateColumn()
+    date: Date;
+
     @Column()
     password: string;
 
     @ManyToMany(() => Address, address => address.users)
     @JoinTable()
     addresses: Address[];
+
+    @OneToMany(() => Order, order => order.user)
+    orders: Order[]; 
 }

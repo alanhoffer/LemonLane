@@ -16,8 +16,15 @@ export class UserService {
     return this.userRepository.save(userDTO);
   }
 
-  findAll() {
-    return this.userRepository.find();
+  async getUsers(page: number, perPage: number): Promise<{ users: User[], totalUsers: number }> {
+    const skip = (page - 1) * perPage;
+    const [users, totalUsers] = await this.userRepository.findAndCount({
+      select: ["id", "name", "lname", "email"], 
+      skip,
+      take: perPage,
+    });
+
+    return { users, totalUsers };
   }
 
   findByEmail(email: string) {

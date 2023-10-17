@@ -4,20 +4,26 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserService } from 'src/user/user.service';
 
 
 @Injectable()
 export class OrderService {
 
-  constructor(@InjectRepository(Order) private orderRepository: Repository<Order>) {
+  constructor(@InjectRepository(Order) private orderRepository: Repository<Order>,
+    private readonly userService: UserService) {
   }
 
 
   async create(createOrderDto: CreateOrderDto) {
 
+    const userFounded = await this.userService.findOne(createOrderDto.user);
+
+    if (!userFounded) {
+      return new HttpException('Error en la busqueda del usuario ' + createOrderDto.user, HttpStatus.NOT_FOUND);
+    }
     try {
-      const newOrder: Order = this.orderRepository.create(createOrderDto);
-      return this.orderRepository.save(newOrder);
+      return this.orderRepository.save(new Order(createOrderDto.status, userFounded, createOrderDto.giftcard));
     }
     catch (error) {
       return error;
@@ -25,13 +31,21 @@ export class OrderService {
 
   }
 
-  findAll() {
-    return this.orderRepository.find();
-  }
 
+  async findAll(page: number, perPage: number): Promise<{ orders: Order[], totalOrders: number }> {
+    const skip = (page - 1) * perPage;
+    const [orders, totalOrders] = await this.orderRepository.findAndCount({
+      skip,
+      take: perPage,
+    });
+
+    return {orders, totalOrders}
+  }
   async findOne(id: number) {
     try {
-      const foundOrder = await this.orderRepository.findOne({ where: { id } });
+      const foundOrder = await this.orderRepository.findOne({
+        where: { id }
+      });
 
       if (!foundOrder) {
         return new HttpException('Error en la busqueda de la orden' + id, HttpStatus.NOT_FOUND);

@@ -1,15 +1,12 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
-  Patch,
   Param,
   Delete,
-  UsePipes,
-  Put
+  Query
 } from '@nestjs/common';
 import { UserService } from './user.service';
+import { User } from './entities/user.entity';
 
 @Controller('user')
 export class UserController {
@@ -18,8 +15,11 @@ export class UserController {
 
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async getUsers(
+    @Query('page') page: number = 1,
+    @Query('perPage') perPage: number = 10,
+  ): Promise<{ users: User[], totalUsers: number }> {
+    return this.userService.getUsers(page, perPage);
   }
 
   @Get(':id')
@@ -28,6 +28,8 @@ export class UserController {
 
     return foundedUser;
   }
+
+
 
   @Delete(':id')
   remove(@Param('id') id: string) {

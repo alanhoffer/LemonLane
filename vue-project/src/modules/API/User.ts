@@ -1,7 +1,32 @@
+export async function createUser(user: any) {
+    
+  const userData = JSON.stringify(user);
+    const url = 'http://localhost:3000/auth/register';
+    return await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: userData, 
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Error al enviar los datos');
+            }
+            return response; 
+        })
+        .then((data) => {
+            console.log('Respuesta del servidor:', data);
+            return data; 
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 
+}
 
-export async function getUsers() {
-    const url = 'http://localhost:3000/user';
+export async function getUsers(page: number, quantity?: number) {
+    const url = `http://localhost:3000/user?page=${page}&perPage=${quantity}`;
 
     try {
         return await fetch(url, {
@@ -23,7 +48,7 @@ export async function getUsers() {
 
 }
 
-export async function deleteUser(id:number) {
+export async function deleteUser(id: number) {
     const url = 'http://localhost:3000/user/' + id;
 
     try {

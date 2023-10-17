@@ -7,6 +7,7 @@ import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
 import { AuthModule } from './auth/auth.module';
 import { CollectionModule } from './product/collection/collection.module';
+import { CategoryModule } from './product/category/category.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -23,6 +24,7 @@ import { CollectionModule } from './product/collection/collection.module';
     UserModule,
     ProductModule,
     OrderModule,
+    CategoryModule,
     AuthModule,
     CollectionModule
   ],

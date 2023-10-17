@@ -19,6 +19,7 @@ defineProps({
 
 </script>
 
+
 <template>
     <div class="table-container">
         <table>
@@ -42,13 +43,13 @@ defineProps({
 </template>
 
 <style scoped>
-
 * {
     font-weight: 500;
     font-family: "Poppins", sans-serif;
     font-size: 14px;
     color: #1e1e1e;
 }
+
 .table-container {
     margin-top: 20px;
 }
