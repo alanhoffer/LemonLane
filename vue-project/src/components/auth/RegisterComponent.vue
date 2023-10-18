@@ -32,6 +32,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .registerTitle {
@@ -49,8 +50,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 }
 .registerForm input {
   width: 100%;
-  margin-top: 30px;
-  padding: 10px;
+  margin-top: 1rem;
+  padding: 1rem;
 }
 
 .fullname {
@@ -61,22 +62,24 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 .fullname input {
   width: 11.25vw;
 }
+input {
+  border: 1px solid #999;
+}
 
 #yourname {
-  margin-right: 15px;
+  margin-right: 0.5rem;
 }
 #lastname {
-  margin-left: 15px;
+  margin-left: 0.5rem;
 }
 
 #signBtn {
-  right: 0;
   width: 25%;
-  margin-top: 30px;
+  margin: auto;
+  margin-top: 2rem;
   padding: 10px;
   background-color: #1e1e1e;
   color: #ffffff;
-  border: none;
   text-align: center;
 }
 

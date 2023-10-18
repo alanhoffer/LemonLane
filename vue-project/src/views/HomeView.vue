@@ -21,7 +21,10 @@ const sliderState = reactive({
   isLoading: true,
 })
 
-fetch('https://6435d85e537112453fe08ab1.mockapi.io/Home')
+
+
+async function fetchImages() {
+  const response = await fetch('https://6435d85e537112453fe08ab1.mockapi.io/Home')
   .then(response => response.json())
   .then(res => {
     newArticles = res.filter((article: { isNew: boolean; }) => article.isNew === true)
@@ -30,8 +33,9 @@ fetch('https://6435d85e537112453fe08ab1.mockapi.io/Home')
   .then(() => {
     sliderState.isLoading = false;
   })
+}
 
-
+fetchImages()
 
 
 

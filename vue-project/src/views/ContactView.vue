@@ -6,21 +6,25 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 <template>
   <main>
     <section class="contact">
+      <h1 class="contactTitle">CONTACT US</h1>
       <div class="contactContainer">
-        <h1 class="contactTitle">CONTACT US</h1>
         <div class="contactForm">
           <div class="senderInformation">
-            <div class="senderLeft">
+            <div class="senderName">
               <input placeholder="First Name" />
               <input placeholder="Last Name" />
-              <input placeholder="Email Name" />
             </div>
-            <textarea class="senderMessage" placeholder="Message..." />
+              <input placeholder="Email" />
+              <input placeholder="Subject" />
+              <textarea class="senderMessage" placeholder="Your message" />
           </div>
-          <button id="sendBtn">
-            Send
-            <font-awesome-icon id="avioncito" icon="fa-solid fa-paper-plane" />
-          </button>
+          <div class="btnContainer">
+
+            <button id="sendBtn">
+              Send
+              <font-awesome-icon id="sendIcon" icon="fa-solid fa-paper-plane" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -49,10 +53,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 <style scoped>
 
-
 .contact {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   height: 100vh;
@@ -60,50 +63,57 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 }
 
 .contactContainer {
-  height: 60vh;
   width: 55vw;
 }
 
 .contactTitle {
+  width: 100%;
+  left: 5vw;
+  text-align: left;
   color: #1e1e1e;
   font-size: 48px;
   font-weight: 100;
-  margin-bottom: 30px;
+  margin: 50px 0 0 0;
 }
 
 .senderInformation {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 100%;
 }
 
-.senderLeft {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  height: 25vh;
-  margin-right: 15px;
-  justify-content: space-between;
+.senderInformation input{
+  margin: 0.5rem;
+  padding: 1rem;
 }
 
-.senderLeft input {
-  padding: 10px;
-
+.senderName {
+  display: flex;
+  flex-direction: row;
+}
+.senderName input{
+  padding: 1rem;
+  width: 50%;
+  margin: 0.5rem;
 }
 
 .senderMessage {
   resize: none;
-  width: 50%;
-  padding: 15px;
-  margin-left: 15px;
+  margin: 0.5rem;
+  padding: 1rem;
+  padding-bottom: 8rem;
 }
 
+.btnContainer{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
 #sendBtn {
-  right: 0;
-  position: absolute;
   width: 25%;
-  margin-top: 30px;
-  padding: 10px;
+  margin: 0.5rem;
+  margin-top: 2rem;
+  padding: 1rem;
   background-color: #1e1e1e;
   color: #ffffff;
   border: none;
@@ -116,14 +126,17 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 }
 
-#avioncito {
-  color: #ffffff;
+#sendIcon {
+  filter: invert(100%);
   margin: 0 5px;
+  height: 1rem;
 }
+
 .contactInfo {
   width: 55vw;
   display: flex;
   justify-content: space-between;
+  bottom: 2rem;
 }
 
 .contactItem {
