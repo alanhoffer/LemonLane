@@ -1,20 +1,31 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { User } from "src/user/entities/user.entity";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { OrderItem } from "../order-item/entities/order-item.entity";
 
 @Entity('order')
 export class Order {
 
-    @PrimaryColumn()
-    id:number;
+    constructor(status: string, user: User, giftcard?: string) {
+        this.status = status;
+        this.user = user;
+        this.giftcard = giftcard;
+    }
+
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column()
-    status:string;
+    status: string;
 
-    @Column()
-    date:Date;
+    @CreateDateColumn()
+    date: Date;
 
-    @Column()
-    userId:number;
+    @ManyToOne(() => User, user => user.orders)
+    user: User;
 
-    @Column({nullable:true})
-    giftcard?:string;
+    @OneToMany(() => OrderItem, orderItem => orderItem.order)
+    orderItems: OrderItem[];
+    
+    @Column({ nullable: true })
+    giftcard?: string;
 }

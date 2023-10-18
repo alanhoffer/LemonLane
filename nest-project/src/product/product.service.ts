@@ -1,98 +1,75 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 import { validate } from 'class-validator';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
 
-  private productList: Product[] = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: 19.99,
-      description: "Description for Product 1",
-      collectionId: 1,
-      categoryId: 2
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 29.99,
-      description: "Description for Product 2",
-      collectionId: 2,
-      categoryId: 3
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 14.99,
-      description: "Description for Product 3",
-      collectionId: 1,
-      categoryId: 4
-    },
-  ];
+  constructor(@InjectRepository(Product) private productRepository: Repository<Product>) { }
 
 
   async create(createProductDto: CreateProductDto) {
 
-    const newProduct: Product = {
-      id: this.productList[this.productList.length - 1].id + 1,
-      name: createProductDto.name,
-      price: createProductDto.price,
-      description: createProductDto.description,
-      collectionId: createProductDto.collectionId,
-      categoryId: createProductDto.categoryId
-    };
-
-    await this.validateProduct(newProduct);
-
-    this.productList.push(newProduct);
-    return newProduct;
   }
 
-  findAll() {
-    return this.productList;
+  async findAll() {
+
+    const productList = this.productRepository.find()
+
+    return productList;
+
   }
 
   findOne(id: number) {
-    const product = this.productList.find(product => product.id == id);
+
+    const product = this.productRepository.find({ where: { id } });
+
+    return product;
+
+  }
+
+
+  async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
+    const product = await this.productRepository.findOne({ where: { id } });
+
+    if (!product) {
+      throw new HttpException(`El producto con el ID ${id} no se encontró.`, HttpStatus.NOT_FOUND);
+    }
+
+    if (updateProductDto.name) {
+      product.name = updateProductDto.name;
+    }
+    if (updateProductDto.price) {
+      product.price = updateProductDto.price;
+    }
+    if (updateProductDto.description) {
+      product.description = updateProductDto.description;
+    }
+    if (updateProductDto.collectionId) {
+      product.collectionId = updateProductDto.collectionId;
+    }
+    if (updateProductDto.categoryId) {
+      product.categoryId = updateProductDto.categoryId;
+    }
+
+    await this.productRepository.save(product);
+
     return product;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    const userIndex = this.productList.findIndex((user) => user.id === id);
+  async remove(id: number) {
 
-    if (!userIndex && userIndex != 0) {
-      throw new BadRequestException('Product not found');
+    const foundedProduct = await this.productRepository.findOne({ where: { id } })
+
+    if (!foundedProduct) {
+      return new HttpException('Error no se encontro el producto', HttpStatus.NOT_FOUND);
     }
 
-    let updatedProduct: Product = { ...this.productList[userIndex], ...updateProductDto };
-
-    this.productList[userIndex] = updatedProduct
-
-    return updatedProduct;
+    return this.productRepository.delete({ id })
   }
 
-  remove(id: number) {
-
-    const productIndex = this.productList.findIndex((user) => user.id === id);
-
-    if (!productIndex && productIndex != 0) {
-      throw new BadRequestException('Product not found');
-    }
-
-    this.productList.splice(productIndex, 1);
-
-    return this.productList;
-  }
-
-  private async validateProduct(product: Product): Promise<void> {
-    const errors = await validate(product);
-
-    if (errors.length > 0) {
-      throw new BadRequestException('Validation failed');
-    }
-  }
 }

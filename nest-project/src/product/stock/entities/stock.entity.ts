@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Product } from "src/product/entities/product.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 
 @Entity('product_stock')
 export class Stock {
@@ -6,18 +7,20 @@ export class Stock {
     @PrimaryColumn()
     id:number;
 
-    @Column()
+    @Column({ type: 'varchar', length: 100 })
     color:string;
 
-    @Column()
+    @Column({ type: 'varchar', length: 100 })
     size:string;
 
     @Column()
     quantity:number;
 
     @Column()
-    image: string;
-
-    @Column()
     productId:number;
+
+    @ManyToOne(() => Product, product => product.stocks) 
+    @JoinColumn({ name: "productId" })
+    product: Product;
+    
 }

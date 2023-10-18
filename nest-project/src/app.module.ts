@@ -6,15 +6,8 @@ import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
 import { AuthModule } from './auth/auth.module';
-import { User } from './user/entities/user.entity';
-import { Product } from './product/entities/product.entity';
-import { Address } from './user/address/entities/address.entity';
-import { Giftcard } from './user/giftcard/entities/giftcard.entity';
-import { Category } from './product/category/entities/category.entity';
-import { Collection } from './product/collection/entities/collection.entity';
-import { Stock } from './product/stock/entities/stock.entity';
-import { Order } from './order/entities/order.entity';
-import { OrderItem } from './order/order-item/entities/order-item.entity';
+import { CollectionModule } from './product/collection/collection.module';
+import { CategoryModule } from './product/category/category.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -23,16 +16,17 @@ import { OrderItem } from './order/order-item/entities/order-item.entity';
     port: 5432,
     password: '8nXWSApr5skU',
     username: 'fl0user',
-    entities: [User, Product, Address, Giftcard, Category, Collection, Stock, Order, OrderItem],
+    entities: ["dist/**/**.entity{.ts,.js}"],
     database: 'lemon-lane',
     synchronize: true,
-    logging: true,
     ssl: true, 
   }),
     UserModule,
     ProductModule,
     OrderModule,
-    AuthModule
+    CategoryModule,
+    AuthModule,
+    CollectionModule
   ],
   controllers: [AppController],
   providers: [AppService],

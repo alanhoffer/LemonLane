@@ -1,6 +1,13 @@
 <script setup lang="ts">
+import { reactive } from 'vue'
 import { logout } from "@/modules/API/Auth";
 import Aside from "@/components/Aside.vue";
+
+const State = reactive({
+  name: '',
+  description: '',
+  file: '',
+})
 </script>
 
 <template>
@@ -35,7 +42,7 @@ import Aside from "@/components/Aside.vue";
   </Aside>
 </template>
 
-<style>
+<style scoped>
 .profile {
   display:flex;
   align-items: center;

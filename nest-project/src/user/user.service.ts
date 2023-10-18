@@ -1,21 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UserDto } from '../auth/dto/user.dto';
+import { updateUserDto } from './dto/update-user.dto';
+
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   create(userDTO: UserDto) {
     return this.userRepository.save(userDTO);
   }
 
-  findAll() {
-    return this.userRepository.find();
+  async getUsers(page: number, perPage: number): Promise<{ users: User[], totalUsers: number }> {
+    const skip = (page - 1) * perPage;
+    const [users, totalUsers] = await this.userRepository.findAndCount({
+      select: ["id", "name", "lname", "email"], 
+      skip,
+      take: perPage,
+    });
+
+    return { users, totalUsers };
   }
 
   findByEmail(email: string) {
@@ -25,14 +34,39 @@ export class UserService {
   findByEmailWithPassword(email: string) {
     return this.userRepository.findOne({
       where: { email },
-      select: ['id', 'name', 'email', 'password', 'role'],
+      select: ['id', 'name', 'lname', 'email', 'password'],
     });
   }
 
   findOne(id: number) {
     return this.userRepository.findOne({
-      where: {id}
+      where: { id }
     });
+  }
+  async updateUser(id: number, updateUserDto: updateUserDto): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    if (!user) {
+      throw new NotFoundException(`El usuario con el ID ${id} no se encontró.`);
+    }
+
+    if (updateUserDto.email) {
+      user.email = updateUserDto.email;
+    }
+    if (updateUserDto.name) {
+      user.name = updateUserDto.name;
+    }
+    if (updateUserDto.lname) {
+      user.lname = updateUserDto.lname;
+    }
+    if (updateUserDto.password) {
+      user.password = updateUserDto.password;
+    }
+
+
+    await this.userRepository.save(user);
+
+    return user;
   }
 
   remove(id: number) {

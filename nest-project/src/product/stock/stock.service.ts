@@ -1,75 +1,68 @@
-import { Injectable,BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import { CreateStockDto } from './dto/create-stock.dto';
 import { UpdateStockDto } from './dto/update-stock.dto';
 import { Stock } from './entities/stock.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class StockService {
 
-  private stockList: Stock[] = [
-    {
-      id: 1,
-      color: "Red",
-      size: "M",
-      quantity: 10,
-      image: "red_cloth1.jpg",
-      productId: 1
-    },
-    {
-      id: 2,
-      color: "Blue",
-      size: "L",
-      quantity: 5,
-      image: "blue_cloth1.jpg",
-      productId: 2
-    },
-    {
-      id: 3,
-      color: "Black",
-      size: "S",
-      quantity: 8,
-      image: "black_cloth1.jpg",
-      productId: 1
-    },
-  ];
-  
-  create(createStockDto: CreateStockDto) {
-    return 'This action adds a new stock';
+  constructor(@InjectRepository(Stock) private stockRepository: Repository<Stock>) { }
+
+  async create(createStockDto: CreateStockDto) {
+    try {
+      const newstock = this.stockRepository.create(createStockDto)
+      return this.stockRepository.save(newstock)
+    }
+    catch (error) {
+      return error
+    }
   }
 
   findAll() {
-    return this.stockList;
+    return this.stockRepository.find();
   }
 
-  findOne(productId: number) {
-    const stock = this.stockList.find(stock => stock.productId == productId);
+  async findOne(id: number) {
+    const foundedStock = await this.stockRepository.findOne({ where: { id } })
+
+    if (!foundedStock) {
+      return new HttpException('Error no se encontro el stock', HttpStatus.NOT_FOUND);
+    }
+
+    return foundedStock
+  }
+
+  async update(id: number, updateStockDto: UpdateStockDto): Promise<Stock> {
+    const stock = await this.stockRepository.findOne({ where: { id } });
+
+    if (!stock) {
+      throw new NotFoundException(`El registro de stock con el ID ${id} no se encontró.`);
+    }
+
+    if (updateStockDto.color) {
+      stock.color = updateStockDto.color;
+    }
+    if (updateStockDto.size) {
+      stock.size = updateStockDto.size;
+    }
+    if (updateStockDto.quantity) {
+      stock.quantity = updateStockDto.quantity;
+    }
+
+    await this.stockRepository.save(stock);
+
     return stock;
   }
 
-  update(id: number, updateStockDto: UpdateStockDto) {
-    const stockIndex = this.stockList.findIndex((stock) => stock.id === id);
+  async remove(id: number) {
+    const foundedStock = await this.stockRepository.findOne({ where: { id } })
 
-    if (!stockIndex && stockIndex != 0) {
-      throw new BadRequestException('Product not found');
+    if (!foundedStock) {
+      return new HttpException('Error no se encontro el stock', HttpStatus.NOT_FOUND);
     }
 
-    let updatedStock: Stock = { ...this.stockList[stockIndex], ...updateStockDto };
-
-    this.stockList[stockIndex] = updatedStock
-
-    return updatedStock;
-  }
-
-  remove(id: number) {
-
-    const stockIndex = this.stockList.findIndex((stock) => stock.id === id);
-
-    if (!stockIndex && stockIndex != 0) {
-      throw new BadRequestException('Product not found');
-    }
-
-    this.stockList.splice(stockIndex, 1);
-
-    return `This action removes a #${id} product`;
+    return this.stockRepository.delete({ id })
   }
 }
