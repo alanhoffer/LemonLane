@@ -51,7 +51,11 @@ export class CollectionService {
       return new HttpException('Error no se encontro la collecion', HttpStatus.NOT_FOUND);
     }
 
-    return foundedCollection
+    const path = `./public/collection/${id}/portada.jpg`;
+
+    const imagen = await fs.readFileSync(path)
+
+    return { imagen: imagen, datos: foundedCollection }
   }
 
   async update(id: number, updateCollectionDto: UpdateCollectionDto): Promise<Collection | HttpException> {
@@ -88,15 +92,13 @@ export class CollectionService {
 
     try {
 
-      const path = `./public/collection/${id}/${file.originalname}`;
+      const path = `./public/collection/${id}/portada.jpg`;
 
       await fs.writeFileSync(path, file.buffer)
 
     }
     catch (error) {
-
       return error
-
     }
 
   }

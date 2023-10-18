@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import SolidButtonVue from '@/components/SolidButton.vue';
-import { createUser } from '@/modules/API/User'
 import { defineProps } from 'vue';
 import { reactive } from 'vue';
 
 
 defineProps({
-    toggleModal: Function
+    toggleModal: {
+        type: Function,
+        required: true
+    },
+    createUserRequest: {
+        type: Function,
+        required: true
+    }
 })
 
 const formData = reactive({
@@ -16,20 +22,7 @@ const formData = reactive({
     password: ""
 });
 
-
-
-async function createUserRequest() {
-    const data = await createUser(formData);
-    console.log(data)
-    if (data.ok) {
-        console.log("Usuario creado", data)
-    }
-    else {
-        console.log("Error", data)
-    }
-}
 </script>
-
 
 <template>
     <div class="modalContainer">
@@ -42,8 +35,7 @@ async function createUserRequest() {
         </div>
         <div class="buttonContainer">
             <SolidButtonVue buttonText="CANCELAR" v-on:click="toggleModal()" />
-            <SolidButtonVue buttonText="AGREGAR" v-on:click="createUserRequest, 
-        toggleModal()" />
+            <SolidButtonVue buttonText="AGREGAR" v-on:click="createUserRequest(formData)" />
         </div>
   
     </div>

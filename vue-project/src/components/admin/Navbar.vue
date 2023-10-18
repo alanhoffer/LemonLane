@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
       <div class="wrapper">
         <nav>
-          <RouterLink to="/admin/">HOME</RouterLink>
           <RouterLink to="/admin/user">USERS</RouterLink>
           <RouterLink to="/admin/order">ORDERS</RouterLink>
           <RouterLink to="/admin/category">CATEGORY</RouterLink>

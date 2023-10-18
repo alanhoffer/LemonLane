@@ -1,8 +1,9 @@
 <script setup lang="ts">
 
-import { ref } from 'vue'
+import { defineProps, defineEmits, ref } from 'vue'
 
-const { filter, search, handleSearch, toggleModal } = defineProps(['filter', 'search', 'handleSearch', 'toggleModal'])
+const { filter, search, handleSearch, toggleModal, name, keys } = defineProps(['filter', 'search', 'handleSearch', 'toggleModal', 'name', 'keys'])
+
 
 const emits = defineEmits()
 
@@ -18,12 +19,9 @@ const emitSearchUpdate = () => emits('update:search', localSearch)
     <div class="userMenu">
         <div class="userFilters">
             <select v-model="localFilter" v-on:input="emitFilterUpdate" name="filter" id="filter">
-                <option value="id">ID</option>
-                <option value="name">NAME</option>
-                <option value="lname">APELLIDO</option>
-                <option value="email">EMAIL</option>
+                <option v-for="key in keys" :value="key">{{ key.toUpperCase() }}</option>
             </select>
-            <input v-model="localSearch" v-on:input="emitSearchUpdate" placeholder="Buscar usuario" />
+            <input v-model="localSearch" v-on:input="emitSearchUpdate" :placeholder='name' />
             <button @click="handleSearch">BUSCAR</button>
         </div>
         <button @click="toggleModal">AGREGAR</button>

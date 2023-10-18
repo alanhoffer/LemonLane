@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Stock } from "../stock/entities/stock.entity";
 import { Category } from "../category/entities/category.entity";
 import { Collection } from "../collection/entities/collection.entity";
@@ -7,7 +7,7 @@ import { OrderItem } from "src/order/order-item/entities/order-item.entity";
 @Entity('product')
 export class Product {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column()

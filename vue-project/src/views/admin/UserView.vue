@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import LoadingVue from '@/components/Loading.vue';
 import Table from '@/components/admin/Table.vue';
-import { deleteUser, getUsers } from '@/modules/API/User';
+import { createUser, deleteUser, getUsers } from '@/modules/API/User';
 import { reactive } from 'vue';
-import ModalVue from '@/components/admin/user/Modal.vue'
+import AddModalVue from '@/components/admin/user/AddModal.vue'
 import { filterData } from '@/modules/helpers/admin/filterData'
 import SearchBar from '@/components/admin/SearchBar.vue';
 
@@ -36,22 +36,22 @@ function editarUsuario(usuario: any) {
 }
 async function eliminarUsuario(userId: any) {
     const response = await deleteUser(userId)
-    getData();
+    getDataRequest();
     console.log('Eliminar usuario con ID', response);
 }
 
 
-function toggleModal(){
+function toggleModal() {
     state.modalStatus = !state.modalStatus;
 }
 
-function handleSearch(){
+function handleSearch() {
     const key = state.filter as keyof TUser;
     return filterData(state.search, state.filter, state.users, key)
 }
 
 
-async function getData() {
+async function getDataRequest() {
     console.log(state.filter)
     const data = await getUsers(state.page, state.perPage);
 
@@ -65,7 +65,20 @@ async function getData() {
     }
 }
 
-getData();
+async function createUserRequest(formData: any) {
+    const data = await createUser(formData);
+    console.log(data)
+    if (data?.ok) {
+        getDataRequest();
+        toggleModal()
+        console.log("Usuario creado", data)
+    }
+    else {
+        console.log("Error", data)
+    }
+}
+
+getDataRequest();
 </script>
 
 <template>
@@ -73,13 +86,14 @@ getData();
         <h1 class="userTitle">USERS</h1>
         <div class="userList">
             <h2>FILTRAR</h2>
-            <SearchBar v-model:filter="state.filter" v-model:search="state.search" :handleSearch="handleSearch" :toggleModal="toggleModal" />
+            <SearchBar name="Buscar usuarios"  :keys="state.keys" v-model:filter="state.filter" v-model:search="state.search" :handleSearch="handleSearch"
+                :toggleModal="toggleModal" />
             <LoadingVue v-if="state.loading" />
             <Table v-if="!state.loading" :headers="state.headers" :keys="state.keys" :data="handleSearch()"
                 :editar="editarUsuario" :eliminar="eliminarUsuario">
             </Table>
         </div>
-        <ModalVue v-if="state.modalStatus" :toggleModal="toggleModal" />
+        <AddModalVue v-if="state.modalStatus" :toggleModal="toggleModal" :createUserRequest="createUserRequest" />
     </section>
 </template>
 
@@ -120,5 +134,4 @@ getData();
     width: 76vw;
     height: 100%;
 }
-
 </style>

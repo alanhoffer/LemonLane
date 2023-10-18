@@ -1,6 +1,8 @@
 export async function createOrder(order: any) {
     
     const orderData = JSON.stringify(order);
+
+    
       const url = 'http://localhost:3000/order';
       return await fetch(url, {
           method: 'POST',

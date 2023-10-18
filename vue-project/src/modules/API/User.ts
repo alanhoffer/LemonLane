@@ -1,23 +1,23 @@
 export async function createUser(user: any) {
-    
-  const userData = JSON.stringify(user);
+
+    const userData = JSON.stringify(user);
     const url = 'http://localhost:3000/auth/register';
     return await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: userData, 
+        body: userData,
     })
         .then((response) => {
             if (!response.ok) {
                 throw new Error('Error al enviar los datos');
             }
-            return response; 
+            return response;
         })
         .then((data) => {
             console.log('Respuesta del servidor:', data);
-            return data; 
+            return data;
         })
         .catch((error) => {
             console.error('Error:', error);

@@ -1,19 +1,37 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
-import { validate } from 'class-validator';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CategoryService } from './category/category.service';
+import { CollectionService } from './collection/collection.service';
 
 @Injectable()
 export class ProductService {
 
-  constructor(@InjectRepository(Product) private productRepository: Repository<Product>) { }
+  constructor(
+    @InjectRepository(Product)
+    private productRepository: Repository<Product>,
+    private readonly collectionService: CollectionService,
+    private readonly categoryService: CategoryService,) { }
 
 
-  async create(createProductDto: CreateProductDto) {
 
+  async create(createProductDto: CreateProductDto): Promise<Product> {
+    const collection = await this.collectionService.findOne(createProductDto.collectionId);
+    if (!collection) {
+      throw new NotFoundException('La colección especificada no existe');
+    }
+
+    const category = await this.categoryService.findOne(createProductDto.categoryId);
+    if (!category) {
+      throw new NotFoundException('La categoría especificada no existe');
+    }
+
+    // Crear el producto
+    const product = this.productRepository.create(createProductDto);
+    return await this.productRepository.save(product);
   }
 
   async findAll() {

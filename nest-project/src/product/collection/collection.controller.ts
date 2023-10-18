@@ -3,7 +3,6 @@ import { CollectionService } from './collection.service';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
 
 @Controller('collection')
 export class CollectionController {
@@ -22,19 +21,20 @@ export class CollectionController {
     @UploadedFile(
       new ParseFilePipe({
         validators: [
-          new MaxFileSizeValidator({ maxSize: 50000 }),
-          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
+          // new MaxFileSizeValidator({ maxSize: 50000 }),
+          // new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
         ],
       }),
     )
     file: Express.Multer.File) {
-      console.log(id, file)
+      
+    console.log(id, file)
     await this.collectionService.loadImage(id, file)
 
   }
 
   @Post()
-  create(@Body() createCollectionDto: CreateCollectionDto,) {
+  create(@Body() createCollectionDto: CreateCollectionDto) {
     return this.collectionService.create(createCollectionDto);
   }
 
