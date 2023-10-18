@@ -59,15 +59,18 @@ const loginState = reactive({
 
 .loginForm input{
     width:22.5vw;
-    margin-top: 30px;
-    padding: 10px;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+input {
+  border: 1px solid #999;
 }
  
 
 #logBtn{
   right: 0;
   width: 25%;
-  margin-top: 30px;
+  margin-top: 2rem;
   padding: 10px;
   background-color: #1e1e1e;
   color: #ffffff;

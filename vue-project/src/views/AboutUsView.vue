@@ -97,8 +97,9 @@ div {
 }
 
 a {
+  border-radius: 50%;
   margin: 10px 0px;
-  padding: 0.5rem;
+  padding: 0.3rem;
   display: block;
   background-color: grey;
 }

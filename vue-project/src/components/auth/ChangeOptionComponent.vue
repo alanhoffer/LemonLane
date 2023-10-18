@@ -59,6 +59,7 @@ const toggleVisible = () => {
     font-size: 64px;
     padding:0px 100px;
     box-sizing: border-box;
+    text-align: center;
 }
 
 #changeOptionBtn{
