@@ -40,9 +40,32 @@ export class CollectionService {
   }
 
 
-  findAll() {
-    return this.collectionRepository.find();
+  async findAll() {
+    try {
+      const collections = await this.collectionRepository.find();
+
+      const result = [];
+
+      for (const collection of collections) {
+        const path = `./public/collection/${collection.id}/portada.jpg`;
+
+        try {
+          const imagen = await fs.readFileSync(path);
+          result.push({ imagen, datos: collection });
+        } catch (error) {
+          // Handle error when reading image
+          result.push({ imagen: null, datos: collection });
+        }
+      }
+
+      return result;
+    } catch (error) {
+      throw new HttpException('Error al obtener las colecciones', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
+
+
+
 
   async findOne(id: number) {
     const foundedCollection = await this.collectionRepository.findOne({ where: { id } })
