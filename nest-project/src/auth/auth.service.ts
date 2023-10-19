@@ -35,8 +35,8 @@ export class AuthService {
       throw new UnauthorizedException('Wrong email.');
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!password) {
+    const isPasswordValid = password == user.password ? true : false;
+    if (!isPasswordValid) {
       throw new UnauthorizedException('Wrong Password.');
     }
 
