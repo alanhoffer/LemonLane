@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import WorkingVue from '@/components/Working.vue';
+
 </script>
 
 <template>
-    <p>dashboard</p>
+    <WorkingVue />
 </template>
 
 <style>

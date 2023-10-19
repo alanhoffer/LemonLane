@@ -10,30 +10,39 @@ import productCard from '../components/shop/productCard.vue'
       <h1 class="shopTitle">SHOP</h1>
       <div class="shopContainer">
         <div class="shopList">
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
-          <productCard />
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
+          <RouterLink to="/product">
+            <productCard />
+          </RouterLink>
         </div>
         <ul class="shopFilters">
           <h4>CATEGORIES</h4>
