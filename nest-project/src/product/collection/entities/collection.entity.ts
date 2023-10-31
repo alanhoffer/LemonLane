@@ -18,7 +18,7 @@ export class Collection {
     @Column({ type: 'varchar', length: 255 })
     description: string;
     
-    @OneToOne(() => Product, product => product.collectionId) 
+    @OneToOne(() => Product, product => product.collection) 
     @JoinColumn({ name: "productId" })
     product: Product;
 }

@@ -7,6 +7,9 @@ import { Repository } from 'typeorm';
 import { CategoryService } from './category/category.service';
 import { CollectionService } from './collection/collection.service';
 
+import * as fs from 'fs'
+import * as path from 'path'
+
 @Injectable()
 export class ProductService {
 
@@ -29,25 +32,62 @@ export class ProductService {
       throw new NotFoundException('La categoría especificada no existe');
     }
 
-    // Crear el producto
-    const product = this.productRepository.create(createProductDto);
-    return await this.productRepository.save(product);
+    try {
+      // Create the product entity
+      const newProduct = this.productRepository.create({
+        name: createProductDto.name,
+        price: createProductDto.price,
+        description: createProductDto.description,
+        collection: collection,
+        category: category,
+      });
+
+      console.log(newProduct)
+      // Save the product to the database
+      return await this.productRepository.save(newProduct);
+    } catch (error) {
+      throw new Error('Error creating the product' + error);
+    }
   }
 
   async findAll() {
+    try {
+      const products = await this.productRepository.find();
 
-    const productList = this.productRepository.find()
+      const result = [];
 
-    return productList;
+      for (const product of products) {
+        const path = `./public/product/${product.id}/portada.jpg`;
 
+        try {
+          const imagen = await fs.readFileSync(path);
+          result.push({ imagen, datos: product });
+        } catch (error) {
+          // Handle error when reading image
+          result.push({ imagen: null, datos: product });
+        }
+      }
+
+      return result;
+    } catch (error) {
+      throw new HttpException('Error al obtener los products', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
-  findOne(id: number) {
 
-    const product = this.productRepository.find({ where: { id } });
 
-    return product;
+  async findOne(id: number) {
+    const foundedProduct = await this.productRepository.findOne({ where: { id } })
 
+    if (!foundedProduct) {
+      return new HttpException('Error no se encontro el producto', HttpStatus.NOT_FOUND);
+    }
+
+    const path = `./public/product/${id}/portada.jpg`;
+
+    const imagen = await fs.readFileSync(path)
+
+    return { imagen: imagen, datos: foundedProduct }
   }
 
 
@@ -67,11 +107,8 @@ export class ProductService {
     if (updateProductDto.description) {
       product.description = updateProductDto.description;
     }
-    if (updateProductDto.collectionId) {
-      product.collectionId = updateProductDto.collectionId;
-    }
     if (updateProductDto.categoryId) {
-      product.categoryId = updateProductDto.categoryId;
+      product.category = updateProductDto.category;
     }
 
     await this.productRepository.save(product);
@@ -88,6 +125,21 @@ export class ProductService {
     }
 
     return this.productRepository.delete({ id })
+  }
+
+  async loadImage(id, file) {
+
+    try {
+
+      const path = `./public/product/${id}/portada.jpg`;
+
+      await fs.writeFileSync(path, file.buffer)
+
+    }
+    catch (error) {
+      return error
+    }
+
   }
 
 }

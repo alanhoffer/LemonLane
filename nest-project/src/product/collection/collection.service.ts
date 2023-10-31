@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
 import { Collection } from './entities/collection.entity';
@@ -71,14 +71,14 @@ export class CollectionService {
     const foundedCollection = await this.collectionRepository.findOne({ where: { id } })
 
     if (!foundedCollection) {
-      return new HttpException('Error no se encontro la collecion', HttpStatus.NOT_FOUND);
+      throw new NotFoundException('La colección especificada no existe');
     }
 
     const path = `./public/collection/${id}/portada.jpg`;
 
     const imagen = await fs.readFileSync(path)
 
-    return { imagen: imagen, datos: foundedCollection }
+    return { imagen: imagen, ...foundedCollection }
   }
 
   async update(id: number, updateCollectionDto: UpdateCollectionDto): Promise<Collection | HttpException> {

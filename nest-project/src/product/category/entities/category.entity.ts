@@ -11,7 +11,7 @@ export class Category {
     @Column({ unique: true, type: 'varchar', length: 100 })
     name: string;
 
-    @OneToOne(() => Product, product => product.categoryId) 
+    @OneToOne(() => Product, product => product.category) 
     @JoinColumn({ name: "productId" })
     product: Product;
 

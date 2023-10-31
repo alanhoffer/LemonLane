@@ -7,6 +7,14 @@ import { OrderItem } from "src/order/order-item/entities/order-item.entity";
 @Entity('product')
 export class Product {
 
+    constructor(name: string, price: number, description: string, collection: Collection, category: Category) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.collection = collection;
+        this.category = category;
+    }
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -21,11 +29,11 @@ export class Product {
 
     @OneToOne(() => Collection)
     @JoinColumn()
-    collectionId: number;
+    collection: Collection;
 
     @OneToOne(() => Category)
     @JoinColumn()
-    categoryId:number;
+    category: Category;
 
     @OneToMany(() => Stock, stock => stock.product)
     @JoinColumn()
