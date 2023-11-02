@@ -21,7 +21,7 @@ export class ProductController {
       }),
     )
     file: Express.Multer.File) {
-    await this.productService.loadImage(id, file)
+    return await this.productService.loadImage(id, file)
 
   }
   

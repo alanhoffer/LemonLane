@@ -42,7 +42,11 @@ export class ProductService {
         category: category,
       });
 
-      console.log(newProduct)
+      const folder = `${newProduct.id}`;
+      const path = './public/product';
+      const url = path + '/' + folder;
+      fs.mkdirSync(url, { recursive: true });
+
       // Save the product to the database
       return await this.productRepository.save(newProduct);
     } catch (error) {
@@ -61,10 +65,10 @@ export class ProductService {
 
         try {
           const imagen = await fs.readFileSync(path);
-          result.push({ imagen, datos: product });
+          result.push({ imagen, ...product });
         } catch (error) {
           // Handle error when reading image
-          result.push({ imagen: null, datos: product });
+          result.push({ imagen: null, ...product });
         }
       }
 
