@@ -28,6 +28,7 @@ const State = reactive({
       </div>
         <ul class="profileNav">
           <li class="active">PROFILE</li>
+          <RouterLink to="/admin/user"><li>ADMIN</li></RouterLink>
           <li>ORDERS</li>
           <li>GIFT CARDS</li>
           <li>ADDRESS</li>
