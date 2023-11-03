@@ -8,7 +8,6 @@ import { CategoryService } from './category/category.service';
 import { CollectionService } from './collection/collection.service';
 
 import * as fs from 'fs'
-import * as path from 'path'
 
 @Injectable()
 export class ProductService {

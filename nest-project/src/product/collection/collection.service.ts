@@ -51,10 +51,10 @@ export class CollectionService {
 
         try {
           const imagen = await fs.readFileSync(path);
-          result.push({ imagen, datos: collection });
+          result.push({ imagen, ...collection });
         } catch (error) {
           // Handle error when reading image
-          result.push({ imagen: null, datos: collection });
+          result.push({ imagen: null, ...collection });
         }
       }
 
