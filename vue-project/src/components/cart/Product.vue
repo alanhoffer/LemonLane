@@ -9,8 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
             <img alt="product image" src="https://i.pinimg.com/originals/2f/f7/7d/2ff77d149b32f6ac6b6664f9181ca803.png" />
             <div className="name">WILD FLOWER</div>
             <div className="size">M</div>
-            <div className="color" data-color="Rojo"></div>
-            <div className="price">$120.0</div>
+            <div className="color" data-color="Bay Leaf"></div>
+            <div className="price">$120.00</div>
             <font-awesome-icon icon="fa-solid fa-trash" />
         </div>
     </main>
@@ -33,6 +33,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     height: 80%;
     aspect-ratio: 2/2;
     object-fit: cover;
+    border-radius: 8px;
 }
 
 
@@ -57,9 +58,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 
 .cartProduct .color {
-    background-color: red;
+    background-color: #84a98c;
     border: 1px solid;
-    border-radius: 6px;
+    border-radius: 4px;
     border-color: #646464;
     height: 20px;
     width: 20px;
@@ -81,6 +82,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 
 .cartProduct .svg-inline--fa :hover {
+  transition: 0.2s;
   color: #c42929;
   cursor: pointer;
 }

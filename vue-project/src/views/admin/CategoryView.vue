@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Table from '@/components/admin/Table.vue';
-import { getCategorys, deleteCategory } from '@/modules/API/Category';
+import { getCategories, deleteCategory } from '@/modules/API/Category';
 import { reactive } from 'vue';
 
 
@@ -41,7 +41,7 @@ function filteredData() {
 }
 
 async function getData() {
-    const data = await getCategorys();
+    const data = await getCategories();
 
     if (data.ok) {
         let response = await data.json();

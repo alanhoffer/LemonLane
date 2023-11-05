@@ -3,39 +3,47 @@ import { reactive } from 'vue'
 
 import AsideVue from '../components/Aside.vue';
 import SliderControls from '@/components/SliderControls.vue';
+import { getCollections, getCollectionsById } from '@/modules/API/Collection';
 
-type Article = {
-  id: number
-  name: string,
-  price: string,
-  image: string,
-  season: string,
-  isNew: boolean,
+type Collection = {
+  datos: tData,
+  imagen: {
+    type: string,
+    data: []
+  }
 }
 
-let newArticles: Article[] = reactive([])
+type tData = {
+  id: number
+  name: string,
+  description: string
+}
+
+let newCollection: Collection[] = reactive([])
 
 const sliderState = reactive({
   actualPage: 0,
-  totalPages: 10,
+  totalPages: 1,
   isLoading: true,
 })
 
-
-
-async function fetchImages() {
-  const response = await fetch('https://6435d85e537112453fe08ab1.mockapi.io/Home')
-  .then(response => response.json())
-  .then(res => {
-    newArticles = res.filter((article: { isNew: boolean; }) => article.isNew === true)
-    sliderState.totalPages = newArticles.length;
-  })
-  .then(() => {
-    sliderState.isLoading = false;
-  })
+function getImageURL(img: number) {
+      const arrayBuffer = new Uint8Array(newCollection[img].imagen.data).buffer;
+      const blob = new Blob([arrayBuffer], { type: newCollection[img].imagen.type });
+      const url = URL.createObjectURL(blob);
+      return url;
 }
 
-fetchImages()
+
+
+async function fetchCollection() {
+  const collections = await getCollections();
+  newCollection = await collections.json();
+  sliderState.totalPages = newCollection.length;
+  sliderState.isLoading = false;
+}
+
+fetchCollection()
 
 
 
@@ -51,7 +59,7 @@ function togglePage(direction: string): Number {
 }
 
 const getPageFormated = (page: number) => {
-  if (page < 10) {
+  if (page < 9) {
     return '0' + (page + 1)
   }
   return '' + (page + 1)
@@ -62,9 +70,9 @@ const getPageFormated = (page: number) => {
 <template>
   <main>
     <section class="slider" v-if="!sliderState.isLoading">
-      <img id="productImage" :src="newArticles[sliderState.actualPage].image" />
+      <img id="productImage" :src="getImageURL(sliderState.actualPage)" />
 
-        <p class="colection">{{ newArticles[sliderState.actualPage].season.toLocaleUpperCase() + ' COLECTION' }}</p>
+        <p class="colection">{{ newCollection[sliderState.actualPage].datos.name.toLocaleUpperCase() + ' COLLECTION' }}</p>
       <div class="sliderPage"> {{ getPageFormated(sliderState.actualPage) }} </div>
     </section>
 

@@ -53,6 +53,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 <style scoped>
 
+
 .contact {
   display: flex;
   justify-content: space-between;
@@ -82,6 +83,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   height: 100%;
 }
 
+input{
+  border-radius: 5px;
+  border: 1px solid #303030;
+}
 .senderInformation input{
   margin: 0.5rem;
   padding: 1rem;
@@ -102,6 +107,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   margin: 0.5rem;
   padding: 1rem;
   padding-bottom: 8rem;
+  border-radius: 5px;
+  border: 1px solid #303030;
+
 }
 
 .btnContainer{
@@ -127,7 +135,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 }
 
 #sendIcon {
-  filter: invert(100%);
   margin: 0 5px;
   height: 1rem;
 }

@@ -17,21 +17,19 @@ defineProps({
 
 const formData = reactive({
     name: "",
-    lname: "",
-    email: "",
-    password: ""
+    description: "",
+    image: ""
 });
 
 </script>
 
 <template>
     <div class="modalContainer">
-        <h1 class="modalTitle"> AGREGAR UN USUARIO </h1>
+        <h1 class="modalTitle"> ADD COLLECTION </h1>
         <div class="input-container">
             <input v-model="formData.name" placeholder="Nombre" />
-            <input v-model="formData.lname" placeholder="Apellido" />
-            <input v-model="formData.email" placeholder="Email" />
-            <input v-model="formData.password" placeholder="Password" />
+            <input v-model="formData.description" placeholder="Description" />
+            <input v-model="formData.image" placeholder="Image" />
         </div>
         <div class="buttonContainer">
             <SolidButtonVue buttonText="CANCELAR" v-on:click="toggleModal()" />

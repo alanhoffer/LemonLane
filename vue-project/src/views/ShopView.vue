@@ -117,6 +117,7 @@ import productCard from '../components/shop/productCard.vue'
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(100px, auto);
+  margin: 0 2rem;
   gap: 20px;
   width: 61vw;
 }
