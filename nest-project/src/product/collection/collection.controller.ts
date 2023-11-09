@@ -14,7 +14,7 @@ export class CollectionController {
   //   return await this.collectionService.create(createCollectionDto);
   // }
 
-  @Post('load/:id')
+  @Post('image/:id')
   @UseInterceptors(FileInterceptor('file'))
   async loadImage(
     @Param('id') id: number,

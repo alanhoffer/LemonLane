@@ -5,7 +5,6 @@ import { Collection } from './entities/collection.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as fs from 'fs'
-import * as path from 'path'
 
 
 @Injectable()
