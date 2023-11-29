@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
+import { base64ToUrl } from '@/modules/helpers/base64ToUrl';
 
 
-
-defineProps({
+const props = defineProps({
     headers: Array<any>,
     keys: Array<any>,
     data: Array<any>,
@@ -16,6 +16,7 @@ defineProps({
         required: true
     },
 })
+console.log(props.data)
 
 </script>
 
@@ -30,8 +31,11 @@ defineProps({
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in data" :key="item.id">
-                    <td v-for="item_info in item">{{ item_info }}</td>
+                <tr v-for="item in props.data" :key="item.id">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }}</td>
+                    <td ><img style="height: 100px;" :src="base64ToUrl(item.imagen)" alt=""></td>
                     <td>
                         <button @click="editar(data)">Editar</button>
                         <button @click="eliminar(item.id)">Eliminar</button>

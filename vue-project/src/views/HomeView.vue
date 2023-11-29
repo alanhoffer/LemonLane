@@ -64,7 +64,7 @@ const getPageFormated = (page: number) => {
     <section class="slider" v-if="!sliderState.isLoading">
       <img id="productImage" :src="newArticles[sliderState.actualPage].image" />
 
-        <p class="colection">{{ newArticles[sliderState.actualPage].season.toLocaleUpperCase() + ' COLECTION' }}</p>
+        <p class="colection">{{ newArticles[sliderState.actualPage].season.toLocaleUpperCase() + ' COLLECTION' }}</p>
       <div class="sliderPage"> {{ getPageFormated(sliderState.actualPage) }} </div>
     </section>
 

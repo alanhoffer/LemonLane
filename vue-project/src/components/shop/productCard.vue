@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { base64ToUrl } from '@/modules/helpers/base64ToUrl';
+
 const props = defineProps(['product']);
 
 </script>
@@ -6,7 +8,8 @@ const props = defineProps(['product']);
 <template>
     <main>
         <div class="productCard">
-            <img src="https://underwavebrand.com/wp-content/uploads/2023/03/DSC04231-1-710x1037.jpg" />
+            <img v-if="!props.product.imagen" src="" />
+            <img v-if="props.product.imagen" :src="base64ToUrl(props.product.imagen)" />
 
             <div class="cardData">
                 <h4>{{ props.product.name}}</h4>
@@ -15,6 +18,11 @@ const props = defineProps(['product']);
 
             <ul class="sizes">
                 <!-- <li v-for="size in props.product" :key="size.name">{{ size.name }}</li> -->
+                <li>S</li>
+                <li>M</li>
+                <li>L</li>
+                <li>XL</li>
+                <li>XXL</li>
             </ul>
         </div>
 
@@ -68,7 +76,7 @@ const props = defineProps(['product']);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 300px;
+    height: 320px;
 }
 
 .productCard:hover {
@@ -77,8 +85,7 @@ const props = defineProps(['product']);
 }
 
 .productCard h4 {
-    font-size: 12px;
-    margin-right: 5px;
+    font-size: .8rem;
     color: #686868
 }
 

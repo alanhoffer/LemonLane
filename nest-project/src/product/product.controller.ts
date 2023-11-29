@@ -12,7 +12,7 @@ export class ProductController {
   @UseInterceptors(FileInterceptor('file'))
   async loadImage(
     @Param('id') id: number,
-    @UploadedFiles(
+    @UploadedFile(
       new ParseFilePipe({
         validators: [
           // new MaxFileSizeValidator({ maxSize: 50000 }),

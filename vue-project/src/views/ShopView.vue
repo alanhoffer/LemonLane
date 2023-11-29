@@ -25,7 +25,6 @@ async function getDataRequest() {
 
     if (data.ok) {
         let response = await data.json();
-        console.log(response)
         state.loading = false
         state.products = prettierProduct(response);
     }
@@ -45,7 +44,7 @@ getDataRequest();
       <div class="shopContainer">
         <div class="shopList">
           <LoadingVue v-if="state.loading" />
-          <RouterLink to="/product" v-if="!state.loading" v-for="product in state.products">
+          <RouterLink :to="'/product/'+ product.id" v-if="!state.loading" v-for="product in state.products">
             <productCard class="card" :key="product.id" :product="product"/>
           </RouterLink>
         </div>
@@ -122,7 +121,7 @@ getDataRequest();
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-columns: minmax(100px, auto);
-  gap: 20px;
+  gap: 30px;
   width: 61vw;
 }
 
