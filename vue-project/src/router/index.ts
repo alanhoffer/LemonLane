@@ -80,12 +80,13 @@ const router = createRouter({
       }
     },
     {
-      path: '/product',
+      path: '/product/:productId',
       name: 'product',
       components: {
         default: ProductView,
         navbar: NavbarVue
-      }
+      },
+      props: true
     },
     {
       path: '/admin',

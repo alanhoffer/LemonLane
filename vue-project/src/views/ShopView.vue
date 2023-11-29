@@ -2,6 +2,39 @@
 
 import AsideVue from '@/components/Aside.vue';
 import productCard from '../components/shop/productCard.vue'
+import { reactive } from 'vue';
+import type { TProduct } from '@/modules/interfaces/TProduct';
+import { getAllProducts } from '@/modules/API/Product';
+import prettierProduct from '@/modules/helpers/admin/product/prettierProduct';
+import LoadingVue from '@/components/Loading.vue';
+
+
+const state = reactive({
+    filter: 'id',
+    loading: true,
+    search: '',
+    headers: ["ID", "NAME",  "PRICE", "DESCRIPTION"],
+    keys: ["id", "name",  "price", "description"],
+    products: <TProduct[]>[
+    ],
+})
+
+async function getDataRequest() {
+    const data = await getAllProducts();
+
+
+    if (data.ok) {
+        let response = await data.json();
+        state.loading = false
+        state.products = prettierProduct(response);
+    }
+    else {
+        console.log("Error", data)
+    }
+
+}
+
+getDataRequest();
 </script>
 
 <template>
@@ -10,38 +43,9 @@ import productCard from '../components/shop/productCard.vue'
       <h1 class="shopTitle">SHOP</h1>
       <div class="shopContainer">
         <div class="shopList">
-          <RouterLink to="/product">
-            <productCard />
-          </RouterLink>
-          <RouterLink to="/product">
-            <productCard />
-          </RouterLink>
-          <RouterLink to="/product">
-            <productCard />
-          </RouterLink>
-          <RouterLink to="/product">
-            <productCard />
-          </RouterLink>
-          <RouterLink to="/product">
-            <productCard />
-          </RouterLink>
-          <RouterLink to="/product">
-            <productCard />
-          </RouterLink>
-          <RouterLink to="/product">
-            <productCard />
-          </RouterLink>
-          <RouterLink to="/product">
-            <productCard />
-          </RouterLink>
-          <RouterLink to="/product">
-            <productCard />
-          </RouterLink>
-          <RouterLink to="/product">
-            <productCard />
-          </RouterLink>
-          <RouterLink to="/product">
-            <productCard />
+          <LoadingVue v-if="state.loading" />
+          <RouterLink :to="'/product/'+ product.id" v-if="!state.loading" v-for="product in state.products">
+            <productCard class="card" :key="product.id" :product="product"/>
           </RouterLink>
         </div>
         <ul class="shopFilters">
@@ -116,8 +120,8 @@ import productCard from '../components/shop/productCard.vue'
 .shopList {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(100px, auto);
-  gap: 20px;
+  grid-auto-columns: minmax(100px, auto);
+  gap: 30px;
   width: 61vw;
 }
 

@@ -2,6 +2,54 @@
 import Aside from '../components/Aside.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import SolidButton from '@/components/SolidButton.vue'
+import { base64ToUrl } from '@/modules/helpers/base64ToUrl';
+import { onMounted, reactive } from 'vue';
+import type { TProduct } from '@/modules/interfaces/TProduct';
+import { getProductById } from '@/modules/API/Product';
+import prettierProduct from '@/modules/helpers/admin/product/prettierProduct';
+import { useRoute } from 'vue-router';
+
+
+
+const state = reactive({
+    filter: 'id',
+    loading: true,
+    search: '',
+    headers: ["ID", "NAME",  "PRICE", "DESCRIPTION"],
+    keys: ["id", "name",  "price", "description"],
+    product: <TProduct[]>[
+    ],
+    imagen: '',
+    datos: {
+        name: '',
+        price: 0,
+        description: ''
+    }
+})
+
+async function getDataRequest(id:number) {
+    const data = await getProductById(id);
+
+
+    if (data.ok) {
+        let response = await data.json();
+        state.loading = false
+        state.datos = response.datos;
+        state.imagen = response.imagen
+        console.log(state.datos)
+    }
+    else {
+        console.log("Error", data)
+    }
+
+}
+onMounted(()=>{
+    const route = useRoute();
+    const productId = route.params.productId;
+    getDataRequest(parseInt(productId));
+})
+
+
 
 
 </script>
@@ -10,14 +58,15 @@ import SolidButton from '@/components/SolidButton.vue'
     <main>
         <section class="productView">
             <div class="slider">
-                <div class="image"><p>1</p></div>
-                <div class="image"><p>2</p></div>
-                <div class="image"><p>3</p></div>
+                <img class="image" v-if="!state.imagen" src="" />
+                <img class="image" v-if="state.imagen" :src="base64ToUrl(state.imagen)" />
+                <!-- <div class="image"><p>2</p></div>
+                <div class="image"><p>3</p></div> -->
             </div>
             <div class="productContainer">
                 <div class="nameRate">
 
-                    <h2 class="name">WILD FLOWER</h2>
+                    <h2 class="name">{{ state.datos.name}}</h2>
                     <div class="rate">
                         <font-awesome-icon icon="fa-solid fa-star" />
                         <font-awesome-icon icon="fa-solid fa-star" />
@@ -27,30 +76,30 @@ import SolidButton from '@/components/SolidButton.vue'
                     </div>
                 </div>
                 <div class="price">
-                    <p>$120.00</p>
+                    <p>${{ state.datos.price }}</p>
                 </div>
                 <div class="description">
-                    <h3>BRAND</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima neque perspiciatis illo iste
-                        reprehenderit magni fugit corrupti cum molestias, dolorem vel autem unde beatae. Necessitatibus qui,
-                        vero accusantium quod in nostrum modi recusandae velit dolor saepe eius ad eos minus ab debitis
-                        deserunt nobis explicabo maxime totam et. Architecto, voluptatem.</p>
+                    <h3>DESCRIPTION</h3>
+                    <p>{{ state.datos.description }}</p>
                 </div>
                 <div class="separator"></div>
-                <div class="sizeContainer">
-                    <h3>SIZE</h3>
-                    <select name="sizeOption" id="sizeOption" required>
-                        <option value="default" disabled selected>SELECT SIZE</option>
-                        <option value="xs">XS</option>
-                        <option value="s">S</option>
-                        <option value="m">M</option>
-                        <option value="l">L</option>
-                        <option value="xl">XL</option>
-                        <option value="xxl">XXL</option>
-                        <option value="xxxl">XXXL</option>
-                    </select>
+                <div class="addControl">
+
+                    <div class="sizeContainer">
+                        <h3>SIZE</h3>
+                        <select name="sizeOption" id="sizeOption" required>
+                            <option value="default" disabled selected>SELECT SIZE</option>
+                            <option value="xs">XS</option>
+                            <option value="s">S</option>
+                            <option value="m">M</option>
+                            <option value="l">L</option>
+                            <option value="xl">XL</option>
+                            <option value="xxl">XXL</option>
+                            <option value="xxxl">XXXL</option>
+                        </select>
+                    </div>
+                    <SolidButton buttonText="Add to Cart" />
                 </div>
-                <SolidButton buttonText="Add to Cart" />
             </div>
         </section>
     </main>
@@ -88,8 +137,7 @@ import SolidButton from '@/components/SolidButton.vue'
 
 .image {
     height: 60vh;
-    width: 20vw;
-    background-color: gray;
+    width: auto;
     margin: 7vh 0;
     align-items: center;
     justify-content: center;
@@ -112,13 +160,14 @@ import SolidButton from '@/components/SolidButton.vue'
 }
 
 .name {
-    font-size: 36px;
-    font-weight: 100;
+    font-size: 48px;
+    font-weight: 200;
 }
 
 .rate .svg-inline--fa {
     height: 16px;
     width: 16px;
+    margin-left: 3px;
 }
 
 .price p {
@@ -128,10 +177,22 @@ import SolidButton from '@/components/SolidButton.vue'
 .description{
     width: 60%;
 }
-
+.description h3{
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
 .separator{
     width: 60%;
     height: 2px;
     background-color: #1e1e1e44;
+}
+
+.addControl {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
 }
 </style>

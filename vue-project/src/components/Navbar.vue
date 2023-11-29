@@ -25,9 +25,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
         <a href="">
           <font-awesome-icon icon="fa-brands fa-instagram" />
         </a>
-        <a href="">
-          <font-awesome-icon icon="fa-brands fa-twitter" />
-        </a>
       </div>
     </div>
   </main>

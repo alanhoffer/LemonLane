@@ -7,7 +7,7 @@
       <div class="loading-icon">
         <i class="fa fa-spinner fa-spin"></i>
       </div>
-      <div class="loading-text">Cargando...</div>
+      <div class="loading-text">Loading...</div>
     </div>
   </template>
   
