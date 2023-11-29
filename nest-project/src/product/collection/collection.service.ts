@@ -106,7 +106,14 @@ export class CollectionService {
       return new HttpException('Error no se encontro la collecion', HttpStatus.NOT_FOUND);
     }
 
-    return this.collectionRepository.delete({ id })
+    const deletedCollection = this.collectionRepository.delete({ id })
+
+    if (deletedCollection) {
+      const path = `./public/collection/${foundedCollection.id}`;
+      fs.rmSync(path, { recursive: true, force: true });
+      return deletedCollection
+    }
+
   }
 
 
