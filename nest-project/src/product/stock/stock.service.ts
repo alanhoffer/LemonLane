@@ -4,15 +4,29 @@ import { UpdateStockDto } from './dto/update-stock.dto';
 import { Stock } from './entities/stock.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ProductService } from '../product.service';
 
 @Injectable()
 export class StockService {
 
-  constructor(@InjectRepository(Stock) private stockRepository: Repository<Stock>) { }
+  constructor(@InjectRepository(Stock) 
+  private stockRepository: Repository<Stock>, 
+  private readonly productService: ProductService) { }
 
   async create(createStockDto: CreateStockDto) {
+
+    const productFounded = await this.productService.findOne(createStockDto.productId);
+    if (!productFounded) {
+      throw new NotFoundException('La categoría especificada no existe');
+    }
+
     try {
-      const newstock = this.stockRepository.create(createStockDto)
+      const newstock = this.stockRepository.create({
+        color: createStockDto.color,
+        size: createStockDto.size,
+        quantity: createStockDto.quantity,
+        product: productFounded.productData,
+      })
       return this.stockRepository.save(newstock)
     }
     catch (error) {

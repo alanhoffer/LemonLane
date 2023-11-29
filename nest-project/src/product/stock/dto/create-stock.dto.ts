@@ -13,10 +13,6 @@ export class CreateStockDto {
     @IsNumber()
     quantity:number;
 
-    
-    @IsString()    
-    image: string;
-
     @IsNumber()
     productId:number;
 

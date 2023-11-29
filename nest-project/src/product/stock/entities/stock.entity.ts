@@ -16,9 +16,6 @@ export class Stock {
     @Column()
     quantity:number;
 
-    @Column()
-    productId:number;
-
     @ManyToOne(() => Product, product => product.stocks) 
     @JoinColumn({ name: "productId" })
     product: Product;
