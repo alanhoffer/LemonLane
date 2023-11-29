@@ -49,6 +49,29 @@ export async function createProduct(product: any) {
       }
   
   }
+
+  export async function getAllProducts() {
+    const url = `http://localhost:3000/product`;
+
+    try {
+        return await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                return error
+            });
+    }
+    catch (error) {
+        return error;
+    }
+
+}
   
   export async function deleteProduct(id: number) {
       const url = 'http://localhost:3000/product/' + id;
