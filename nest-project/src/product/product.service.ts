@@ -53,31 +53,45 @@ export class ProductService {
       throw new Error('Error creating the product' + error);
     }
   }
-
+  
   async findAll() {
     try {
       const products = await this.productRepository.find();
 
       const result = [];
 
+
+      // ...
+
       for (const product of products) {
-        const path = `./public/product/${product.id}/portada.jpg`;
+        const dirPath = `./public/product/${product.id}`;
 
         try {
-          const imagen = await fs.readFileSync(path);
+          // Lee la lista de archivos en el directorio
+          const images = fs.readdirSync(dirPath);
+
+          // Encuentra la primera imagen (si hay alguna)
+          const firstImage = images.find((imageName) => imageName.endsWith('.jpg'));
+
+          // Construye la ruta completa de la primera imagen
+          const imagePath = firstImage ? path.join(dirPath, firstImage) : null;
+
+          // Lee el contenido de la primera imagen
+          const imagen = imagePath ? fs.readFileSync(imagePath) : null;
+
           result.push({ imagen, ...product });
         } catch (error) {
-          // Handle error when reading image
+          // Handle error when reading images
           result.push({ imagen: null, ...product });
         }
       }
 
+
       return result;
     } catch (error) {
-      throw new HttpException('Error al obtener los products', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException('Error al obtener los productos', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
 
 
   async findOne(id: number) {
@@ -85,15 +99,15 @@ export class ProductService {
       where: { id },
       relations: ['stocks', 'category', 'collection', 'orderItems'],
     });
-  
+
     if (!foundedProduct) {
       throw new HttpException('Error: No se encontró el producto', HttpStatus.NOT_FOUND);
     }
-  
+
     const imageDir = `./public/product/${id}`;
     let images: string[] = [];
 
-  
+
     try {
       // Lee la lista de archivos en el directorio
       images = fs.readdirSync(imageDir);
@@ -101,9 +115,9 @@ export class ProductService {
       // Handle error when reading the directory
       console.error('Error al leer el directorio de imágenes:', error);
     }
-  
+
     const imagePaths = images.map((imageName) => `${imageDir}/${imageName}`);
-  
+
     // Lee el contenido de cada imagen
     const imageData = imagePaths.map((imagePath) => {
       try {
@@ -115,10 +129,10 @@ export class ProductService {
         return null;
       }
     });
-  
+
     // Combina los datos del producto con la información de las imágenes
     const result = { images: imageData, productData: foundedProduct };
-  
+
     return result;
   }
 

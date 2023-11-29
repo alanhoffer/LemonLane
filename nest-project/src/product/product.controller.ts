@@ -30,7 +30,6 @@ export class ProductController {
     @Param('id') id: number,
     @UploadedFiles()
     files: Array<Express.Multer.File>) {
-      console.log(files)
       return await this.productService.uploadImages(id, files)
   }
 
